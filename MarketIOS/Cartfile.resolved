@@ -1,0 +1,2 @@
+github "Alamofire/Alamofire" "3.4.1"
+github "fs/FSHelper" "0584af92d5368e0d2139c47c3f85498adbab46bc"

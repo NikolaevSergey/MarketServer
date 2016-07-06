@@ -1,0 +1,6 @@
+services:
+  - docker
+before_install:
+  - docker build -t danappelxx/swiftmongodb -f Tests/Dockerfile .
+script:
+  - docker run danappelxx/swiftmongodb /bin/sh -c "mongod --fork --logpath /dev/null && swift test"

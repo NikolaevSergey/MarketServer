@@ -1,0 +1,2 @@
+github "fs/FSHelper" "remove-objc-helpers"
+github "Alamofire/Alamofire" ~> 3.4

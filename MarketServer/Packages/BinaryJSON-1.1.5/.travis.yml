@@ -1,0 +1,6 @@
+services:
+  - docker
+before_install:
+  - docker build -t danappelxx/binaryjson -f Tests/Dockerfile .
+script:
+  - docker run danappelxx/binaryjson swift test
