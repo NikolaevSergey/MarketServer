@@ -16,6 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        self.setupLogger()
+        
         return true
     }
 
@@ -42,5 +45,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
+}
+
+extension AppDelegate {
+    
+    func setupLogger() {
+        
+//        let log = Logger
+        
+//        #if DEBUG
+//        log.outputLogLevel = .Debug
+//        #else
+//        log.outputLogLevel = .None
+//        #endif
+        
+        Logger.setup(.Debug, showLogIdentifier: false, showFunctionName: false, showThreadName: true, showLogLevel: false, showFileNames: true, showLineNumbers: true, showDate: true, writeToFile: nil, fileLogLevel: .None)
+        
+        Logger.dateFormatter?.dateFormat = "HH:mm:ss.SSS"
+        Logger.xcodeColorsEnabled = true
+        
+        print()
+        
+//        let log = Logger
+//        log.verbose("A verbose message, usually useful when working on a specific problem")
+//        log.debug("A debug message")
+//        log.info("An info message, probably useful to power users looking in console.app")
+//        log.warning("A warning message, may indicate a possible error")
+//        log.error("An error occurred, but it's recoverable, just info about what happened")
+//        log.severe("A severe error occurred, we are likely about to crash now")
+    }
+    
 }
 
