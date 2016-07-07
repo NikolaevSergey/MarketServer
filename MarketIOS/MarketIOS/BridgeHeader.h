@@ -6,6 +6,8 @@
 //  Copyright © 2016 Flatstack. All rights reserved.
 //
 
+#import <CommonCrypto/CommonCrypto.h>
+
 @import FSHelpers;
 @import Alamofire;
 @import Realm;
