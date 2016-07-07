@@ -77,17 +77,3 @@ enum RequestError {
     
     var error: RTError {return RTError(request: self)}
 }
-
-//====
-
-//enum SerializeError: ErrorType {
-//    case WrongType
-//    case RequiredFieldMissing
-//    case Network(NetworkError)
-//}
-//
-//enum NetworkError {
-//    case Unknown(NSError?)
-//}
-
-
