@@ -18,6 +18,10 @@
 		21CD366A1D2D1813003AE7DA /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21CD36681D2D1813003AE7DA /* Alamofire.framework */; };
 		21CD366F1D2D195C003AE7DA /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21CD366D1D2D195C003AE7DA /* Realm.framework */; };
 		21CD36701D2D195C003AE7DA /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21CD366E1D2D195C003AE7DA /* RealmSwift.framework */; };
+		21EAF2431D2E46B200ADCCC6 /* XCGLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21EAF2421D2E46B200ADCCC6 /* XCGLogger.framework */; };
+		21EAF2451D2E48C200ADCCC6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EAF2441D2E48C200ADCCC6 /* Constants.swift */; };
+		21EAF2471D2E48CB00ADCCC6 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EAF2461D2E48CB00ADCCC6 /* Helpers.swift */; };
+		21EAF2491D2E48D300ADCCC6 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EAF2481D2E48D300ADCCC6 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +60,10 @@
 		21CD366C1D2D192C003AE7DA /* BridgeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgeHeader.h; sourceTree = "<group>"; };
 		21CD366D1D2D195C003AE7DA /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Realm/Realm.framework; sourceTree = "<group>"; };
 		21CD366E1D2D195C003AE7DA /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Realm/RealmSwift.framework; sourceTree = "<group>"; };
+		21EAF2421D2E46B200ADCCC6 /* XCGLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCGLogger.framework; path = Carthage/Build/iOS/XCGLogger.framework; sourceTree = "<group>"; };
+		21EAF2441D2E48C200ADCCC6 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		21EAF2461D2E48CB00ADCCC6 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		21EAF2481D2E48D300ADCCC6 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21EAF2431D2E46B200ADCCC6 /* XCGLogger.framework in Frameworks */,
 				21CD366F1D2D195C003AE7DA /* Realm.framework in Frameworks */,
 				21CD36701D2D195C003AE7DA /* RealmSwift.framework in Frameworks */,
 				21CD36691D2D1813003AE7DA /* FSHelpers.framework in Frameworks */,
@@ -111,6 +120,9 @@
 		21CD36381D2D165C003AE7DA /* MarketIOS */ = {
 			isa = PBXGroup;
 			children = (
+				21EAF2441D2E48C200ADCCC6 /* Constants.swift */,
+				21EAF2461D2E48CB00ADCCC6 /* Helpers.swift */,
+				21EAF2481D2E48D300ADCCC6 /* Extensions.swift */,
 				21CD36391D2D165C003AE7DA /* AppDelegate.swift */,
 				21CD363B1D2D165C003AE7DA /* ViewController.swift */,
 				21CD363D1D2D165C003AE7DA /* Main.storyboard */,
@@ -143,6 +155,7 @@
 		21CD36711D2D1977003AE7DA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				21EAF2421D2E46B200ADCCC6 /* XCGLogger.framework */,
 				21CD366D1D2D195C003AE7DA /* Realm.framework */,
 				21CD366E1D2D195C003AE7DA /* RealmSwift.framework */,
 				21CD36671D2D1813003AE7DA /* FSHelpers.framework */,
@@ -287,6 +300,9 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/FSHelpers.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/XCGLogger.framework",
+				"$(SRCROOT)/Realm/Realm.framework",
+				"$(SRCROOT)/Realm/RealmSwift.framework",
 			);
 			outputPaths = (
 			);
@@ -301,8 +317,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21EAF2491D2E48D300ADCCC6 /* Extensions.swift in Sources */,
 				21CD363C1D2D165C003AE7DA /* ViewController.swift in Sources */,
 				21CD363A1D2D165C003AE7DA /* AppDelegate.swift in Sources */,
+				21EAF2451D2E48C200ADCCC6 /* Constants.swift in Sources */,
+				21EAF2471D2E48CB00ADCCC6 /* Helpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -539,6 +558,7 @@
 				21CD36601D2D165C003AE7DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		21CD36611D2D165C003AE7DA /* Build configuration list for PBXNativeTarget "MarketIOSTests" */ = {
 			isa = XCConfigurationList;
@@ -547,6 +567,7 @@
 				21CD36631D2D165C003AE7DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		21CD36641D2D165C003AE7DA /* Build configuration list for PBXNativeTarget "MarketIOSUITests" */ = {
 			isa = XCConfigurationList;
@@ -555,6 +576,7 @@
 				21CD36661D2D165C003AE7DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

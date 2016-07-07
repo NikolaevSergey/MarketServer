@@ -9,3 +9,4 @@
 @import FSHelpers;
 @import Alamofire;
 @import Realm;
+@import XCGLogger;
