@@ -8,24 +8,14 @@
 
 import Foundation
 
-enum SerializeError: ErrorType {
-    case WrongType
-    case RequiredFieldMissing
-    case Network(NetworkError)
-}
-
-enum NetworkError {
-    case Unknown(NSError?)
-}
-
-protocol Serialazible {
+protocol RTSerialazible {
     associatedtype ResponseType
     static func serialize (object: ResponseType) throws -> Self
 }
 
 extension Request {
     
-    func responseObject<T: Serialazible>(completionHandler: Response<T, SerializeError> -> Void) -> Self {
+    func responseObject<T: RTSerialazible>(completionHandler: Response<T, SerializeError> -> Void) -> Self {
         
         let responseSerializer = ResponseSerializer<T, SerializeError> { request, response, data, error in
             

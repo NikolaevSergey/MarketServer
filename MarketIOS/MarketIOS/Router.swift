@@ -56,9 +56,9 @@ struct RTRequestSettings {
 extension Alamofire.Method {
     var encoding : ParameterEncoding {
         switch self {
-        case .GET: return .URL
-        case .POST, .PUT, .PATCH: return .JSON
-        default: return .URL
+        case .GET                   : return .URL
+        case .POST, .PUT, .PATCH    : return .JSON
+        default                     : return .URL
         }
     }
 }
