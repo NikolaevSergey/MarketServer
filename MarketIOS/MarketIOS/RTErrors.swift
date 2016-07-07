@@ -14,7 +14,7 @@ protocol FSError: ErrorType {
 
 extension FSError {
     func log () {
-        NSLog("\(self._domain)(\(self._code)): \(self.description)")
+        Logger.error("\(self._domain)(\(self._code)): \(self.description)")
     }
 }
 
@@ -32,36 +32,62 @@ protocol HumanErrorType: FSError {
     var humanDescription: ErrorHumanDescription {get}
 }
 
-enum RTError {
+enum RTError: ErrorType {
     case Request(RequestError)
     case Backend(BackendError)
     case Serialize(SerializationError)
     case Unknown(NSError?)
 }
 
+extension RTError {
+    init (request: RequestError) {
+        self = .Request(request)
+    }
+    
+    init (backend: BackendError) {
+        self = .Backend(backend)
+    }
+    
+    init (serialize: SerializationError) {
+        self = .Serialize(serialize)
+    }
+    
+    init (error: NSError?) {
+        self = .Unknown(error)
+    }
+}
+
 enum SerializationError {
     case WrongType
     case RequeriedFieldMissing
+    case JSONSerializingFailed
+    case Unknown
+    
+    var error: RTError {return RTError(serialize: self)}
 }
 
 enum BackendError {
     case NotAuthorized
+    
+    var error: RTError {return RTError(backend: self)}
 }
 
 enum RequestError {
-    //???
+    case Unknown(error: NSError?)
+    
+    var error: RTError {return RTError(request: self)}
 }
 
 //====
 
-enum SerializeError: ErrorType {
-    case WrongType
-    case RequiredFieldMissing
-    case Network(NetworkError)
-}
-
-enum NetworkError {
-    case Unknown(NSError?)
-}
+//enum SerializeError: ErrorType {
+//    case WrongType
+//    case RequiredFieldMissing
+//    case Network(NetworkError)
+//}
+//
+//enum NetworkError {
+//    case Unknown(NSError?)
+//}
 
 

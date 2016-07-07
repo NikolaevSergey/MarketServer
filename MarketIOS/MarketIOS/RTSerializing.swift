@@ -15,11 +15,10 @@ protocol RTSerialazible {
 
 extension Request {
     
-    func responseObject<T: RTSerialazible>(completionHandler: Response<T, SerializeError> -> Void) -> Self {
+    func responseObject<T: RTSerialazible>(completionHandler: Response<T, RTError> -> Void) -> Self {
         
-        let responseSerializer = ResponseSerializer<T, SerializeError> { request, response, data, error in
-            
-            guard error == nil else { return .Failure(SerializeError.Network(.Unknown(error!)))}
+        let responseSerializer = ResponseSerializer<T, RTError> { request, response, data, error in
+            guard error == nil else { return .Failure(RTError(request: .Unknown(error: error)))}
             
             let JSONResponseSerializer = Request.JSONResponseSerializer(options: .AllowFragments)
             let result = JSONResponseSerializer.serializeResponse(request, response, data, error)
@@ -28,18 +27,20 @@ extension Request {
             case .Success(let value):
                 
                 guard let object = value as? T.ResponseType else {
-                    return .Failure(SerializeError.WrongType)
+                    return .Failure(RTError(serialize: .WrongType))
                 }
                 
                 do {
                     let serializedObject = try T.serialize(object)
                     return .Success(serializedObject)
+                } catch let error as SerializationError {
+                    return .Failure(RTError(serialize: error))
                 } catch {
-                    return .Failure(SerializeError.RequiredFieldMissing)
+                    return .Failure(RTError(serialize: .Unknown))
                 }
                 
             case .Failure(_):
-                return .Failure(SerializeError.WrongType)
+                return .Failure(RTError(serialize: .JSONSerializingFailed))
             }
         }
         

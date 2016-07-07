@@ -13,6 +13,8 @@ extension SerializationError: FSError {
         switch self {
         case .WrongType             : return "Response has wrong type"
         case .RequeriedFieldMissing : return "One of required fields is missing"
+        case .JSONSerializingFailed : return "Serialization to JSON object was failed"
+        case .Unknown               : return "Unknown serialization error"
         }
     }
 }

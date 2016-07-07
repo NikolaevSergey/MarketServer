@@ -145,6 +145,15 @@
 			name = Errors;
 			sourceTree = "<group>";
 		};
+		21A040E61D2E5AD600B38244 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				21EAF2461D2E48CB00ADCCC6 /* Helpers.swift */,
+				21EAF2481D2E48D300ADCCC6 /* Extensions.swift */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
 		21CD362D1D2D165C003AE7DA = {
 			isa = PBXGroup;
 			children = (
@@ -170,9 +179,8 @@
 			isa = PBXGroup;
 			children = (
 				21EAF2441D2E48C200ADCCC6 /* Constants.swift */,
-				21EAF2461D2E48CB00ADCCC6 /* Helpers.swift */,
-				21EAF2481D2E48D300ADCCC6 /* Extensions.swift */,
 				21CD36391D2D165C003AE7DA /* AppDelegate.swift */,
+				21A040E61D2E5AD600B38244 /* Helpers */,
 				2112B4781D2D5AEC00D7C833 /* Interface */,
 				2112B4761D2D5A9800D7C833 /* API */,
 				21CD363B1D2D165C003AE7DA /* ViewController.swift */,
