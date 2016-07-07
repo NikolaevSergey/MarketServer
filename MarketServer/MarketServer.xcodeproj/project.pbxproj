@@ -12,6 +12,7 @@
 		218E71681D125EEC008DED86 /* UserHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E71671D125EEC008DED86 /* UserHandler.swift */; };
 		218E716B1D128014008DED86 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E716A1D128014008DED86 /* Extensions.swift */; };
 		218E716D1D12938A008DED86 /* PerfectInit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E716C1D12938A008DED86 /* PerfectInit.swift */; };
+		21A040E91D2EAFBC00B38244 /* XCGLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21A040E81D2EAFBC00B38244 /* XCGLogger.framework */; };
 		21B3B8681D1B1B7E00047882 /* PerfectLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21B3B8671D1B1B7E00047882 /* PerfectLib.framework */; };
 		21B3B86A1D1B1B8600047882 /* PostgreSQL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21B3B8691D1B1B8600047882 /* PostgreSQL.framework */; };
 		21B3B86C1D1B1C2400047882 /* JSONSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B3B86B1D1B1C2400047882 /* JSONSource.swift */; };
@@ -64,6 +65,7 @@
 		218E71671D125EEC008DED86 /* UserHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserHandler.swift; sourceTree = "<group>"; };
 		218E716A1D128014008DED86 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		218E716C1D12938A008DED86 /* PerfectInit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerfectInit.swift; sourceTree = "<group>"; };
+		21A040E81D2EAFBC00B38244 /* XCGLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCGLogger.framework; path = Carthage/Build/Mac/XCGLogger.framework; sourceTree = "<group>"; };
 		21B3B8671D1B1B7E00047882 /* PerfectLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PerfectLib.framework; path = "../../../Library/Developer/Xcode/DerivedData/CHASHA-fgweoduxguuvjwbpyrsjuqrgaoux/Build/Products/Debug/PerfectLib.framework"; sourceTree = "<group>"; };
 		21B3B8691D1B1B8600047882 /* PostgreSQL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PostgreSQL.framework; path = "../../../Library/Developer/Xcode/DerivedData/CHASHA-fgweoduxguuvjwbpyrsjuqrgaoux/Build/Products/Debug/PostgreSQL.framework"; sourceTree = "<group>"; };
 		21B3B86B1D1B1C2400047882 /* JSONSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONSource.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21A040E91D2EAFBC00B38244 /* XCGLogger.framework in Frameworks */,
 				21B3B86A1D1B1B8600047882 /* PostgreSQL.framework in Frameworks */,
 				21B3B8681D1B1B7E00047882 /* PerfectLib.framework in Frameworks */,
 			);
@@ -133,6 +136,7 @@
 		21BE5A4D1D112B6800A0FCBA = {
 			isa = PBXGroup;
 			children = (
+				21A040E81D2EAFBC00B38244 /* XCGLogger.framework */,
 				21B3B8691D1B1B8600047882 /* PostgreSQL.framework */,
 				21B3B8671D1B1B7E00047882 /* PerfectLib.framework */,
 				21BE5A591D112B6800A0FCBA /* MarketServer */,
@@ -255,6 +259,7 @@
 				21BE5A541D112B6800A0FCBA /* Headers */,
 				21BE5A551D112B6800A0FCBA /* Resources */,
 				21C0DEE41D11E5C5008C6B50 /* CopyFiles */,
+				21A040E71D2EAF8200B38244 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -336,6 +341,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		21A040E71D2EAF8200B38244 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/Mac/XCGLogger.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		21BE5A521D112B6800A0FCBA /* Sources */ = {
@@ -482,6 +504,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = MarketServer/Info.plist;
 				INSTALL_PATH = /PerfectLibraries;
@@ -489,6 +515,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = KR.MarketServer;
 				PRODUCT_NAME = MarketServer;
 				SKIP_INSTALL = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -504,6 +531,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = MarketServer/Info.plist;
 				INSTALL_PATH = /PerfectLibraries;
@@ -511,6 +542,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = KR.MarketServer;
 				PRODUCT_NAME = MarketServer;
 				SKIP_INSTALL = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 			};
 			name = Release;
 		};
