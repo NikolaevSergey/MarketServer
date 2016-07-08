@@ -13,12 +13,16 @@ protocol KRHandlerProtocol: RequestHandler {
     var requestType:RequestType {get}
     var responseContentType: ResponseContentType {get}
     
+    var requiredFields: [String] {get}
+    
     func getRequestParameters(request: WebRequest) -> [String : String]
     
     func kr_handleRequest(query: [String : String], request: WebRequest, response: WebResponse) throws
 }
 
 extension KRHandlerProtocol {
+    
+    var requiredFields: [String] {return []}
     
     func getRequestParameters(request: WebRequest) -> [String : String] {
         switch self.requestType {
@@ -34,8 +38,14 @@ extension KRHandlerProtocol {
         
         defer {response.requestCompletedCallback()}
         
+        let query = self.getRequestParameters(request)
+        
+        for key in self.requiredFields {
+            guard query[key] != nil else {response.setHTTPStatus(._400); return}
+        }
+        
         do {
-            try self.kr_handleRequest(self.getRequestParameters(request), request: request, response: response)
+            try self.kr_handleRequest(query, request: request, response: response)
         } catch let status as HTTPStatus {
             response.setHTTPStatus(status)
         } catch let error as APIError {

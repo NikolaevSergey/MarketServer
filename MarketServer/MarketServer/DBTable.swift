@@ -8,16 +8,21 @@
 
 import PostgreSQL
 
-class DBTable {
-    let name            : String
-    let columns         : [DBColumn]
-    let relationships   : [DBRelation]
+protocol DBTable {
+    var name            : String {get}
+    var columns         : [DBColumn] {get}
+    var relationships   : [DBRelation] {get}
     
-    init (name: String, columns: [DBColumn] = [], relationships: [DBRelation] = []) {
-        self.name           = name
-        self.columns        = columns
-        self.relationships  = relationships
-    }
+//    init (name: String, columns: [DBColumn] = [], relationships: [DBRelation] = []) {
+//        self.name           = name
+//        self.columns        = columns
+//        self.relationships  = relationships
+//    }
+    
+    
+}
+
+extension DBTable {
     
     func getColumn (name: String) -> DBColumn? {
         for column in self.columns {
@@ -64,9 +69,6 @@ class DBTable {
         
         return query
     }
-}
-
-extension DBTable {
     
     var allColumnsNames: [String] {
         let columnNames     = self.columns.map({$0.name})

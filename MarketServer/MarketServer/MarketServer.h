@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+@import XCGLogger;
+
 //! Project version number for PerfectBase.
 FOUNDATION_EXPORT double PerfectBaseVersionNumber;
 

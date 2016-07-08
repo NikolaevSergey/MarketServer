@@ -157,11 +157,11 @@
 		21CD362D1D2D165C003AE7DA = {
 			isa = PBXGroup;
 			children = (
-				21CD36711D2D1977003AE7DA /* Frameworks */,
 				21CD36381D2D165C003AE7DA /* MarketIOS */,
 				21CD364D1D2D165C003AE7DA /* MarketIOSTests */,
 				21CD36581D2D165C003AE7DA /* MarketIOSUITests */,
 				21CD36371D2D165C003AE7DA /* Products */,
+				21CD36711D2D1977003AE7DA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -180,8 +180,8 @@
 			children = (
 				21EAF2441D2E48C200ADCCC6 /* Constants.swift */,
 				21CD36391D2D165C003AE7DA /* AppDelegate.swift */,
-				21A040E61D2E5AD600B38244 /* Helpers */,
 				2112B4781D2D5AEC00D7C833 /* Interface */,
+				21A040E61D2E5AD600B38244 /* Helpers */,
 				2112B4761D2D5A9800D7C833 /* API */,
 				21CD363B1D2D165C003AE7DA /* ViewController.swift */,
 				2112B4771D2D5ABB00D7C833 /* Supporting Files */,

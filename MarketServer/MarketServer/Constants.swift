@@ -9,4 +9,6 @@
 import PerfectLib
 
 let DB_PATH = PerfectServer.staticPerfectServer.homeDir() + serverSQLiteDBs + "PWSDB"
+//let TokenExperationTime: NSTimeInterval = 0
 
+var Logger: XCGLogger {return XCGLogger.defaultInstance()}

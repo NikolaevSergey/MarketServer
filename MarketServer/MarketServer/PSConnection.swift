@@ -16,7 +16,7 @@ class PSConnection {
         self.connection.close()
     }
     
-    init (settings: PSSettings = PSSettings.defaultSettings) throws {
+    init (settings: PSSettings = PSSettings(dbname: "Market")) throws {
         self.connection = PostgreSQL.PGConnection()
         self.connection.connectdb(settings.getConnectString())
         
