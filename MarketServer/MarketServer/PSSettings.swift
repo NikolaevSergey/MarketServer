@@ -14,13 +14,11 @@ struct PSSettings {
     let user        : String
     let password    : String
     
-    static var defaultSettings: PSSettings {
-        return PSSettings(
-            host        : "localhost",
-            dbname      : "chasha",
-            user        : "",
-            password    : ""
-        )
+    init (host: String = "localhost", dbname: String, user: String = "", password: String = "") {
+        self.host = host
+        self.dbname = dbname
+        self.user = user
+        self.password = password
     }
     
     func getConnectString () -> String {

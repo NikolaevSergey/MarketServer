@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2122B9E41D2EF27900E3E645 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2122B9E31D2EF27900E3E645 /* Settings.swift */; };
 		2140215E1D16FF0500204926 /* PSDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2140215D1D16FF0500204926 /* PSDatabase.swift */; };
 		2173A6A01D13313E00C371AC /* KRHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2173A69F1D13313E00C371AC /* KRHandlerProtocol.swift */; };
 		218E71681D125EEC008DED86 /* UserHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E71671D125EEC008DED86 /* UserHandler.swift */; };
@@ -60,6 +61,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2122B9E31D2EF27900E3E645 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		2140215D1D16FF0500204926 /* PSDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PSDatabase.swift; sourceTree = "<group>"; };
 		2173A69F1D13313E00C371AC /* KRHandlerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KRHandlerProtocol.swift; sourceTree = "<group>"; };
 		218E71671D125EEC008DED86 /* UserHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserHandler.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 		218E71691D128009008DED86 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				21C0DEE81D11ECA7008C6B50 /* Statuses.swift */,
 				21D220961D14A65E00C95CDD /* APIError.swift */,
 				2173A69F1D13313E00C371AC /* KRHandlerProtocol.swift */,
 				218E716A1D128014008DED86 /* Extensions.swift */,
@@ -157,9 +160,9 @@
 		21BE5A591D112B6800A0FCBA /* MarketServer */ = {
 			isa = PBXGroup;
 			children = (
-				218E716C1D12938A008DED86 /* PerfectInit.swift */,
 				21C0DEE61D11EC57008C6B50 /* Constants.swift */,
-				21C0DEE81D11ECA7008C6B50 /* Statuses.swift */,
+				218E716C1D12938A008DED86 /* PerfectInit.swift */,
+				2122B9E31D2EF27900E3E645 /* Settings.swift */,
 				21F30FE21D19C52D00CA8B6E /* Databases */,
 				218E716E1D1293A6008DED86 /* Handlers */,
 				218E71691D128009008DED86 /* Helpers */,
@@ -378,6 +381,7 @@
 				2173A6A01D13313E00C371AC /* KRHandlerProtocol.swift in Sources */,
 				21F30FE41D19C6F400CA8B6E /* PSSettings.swift in Sources */,
 				21C0DEEE1D11EE4F008C6B50 /* SQLiteDatabase.swift in Sources */,
+				2122B9E41D2EF27900E3E645 /* Settings.swift in Sources */,
 				21C0DEE71D11EC57008C6B50 /* Constants.swift in Sources */,
 				21F30FE81D19C72F00CA8B6E /* PSExtensions.swift in Sources */,
 				21F30FDB1D198A9F00CA8B6E /* DBTable.swift in Sources */,
