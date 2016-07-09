@@ -8,6 +8,8 @@
 
 import PerfectLib
 
+typealias QueryType = [String : String]
+
 protocol KRHandlerProtocol: RequestHandler {
     
     var requestType:RequestType {get}
@@ -16,6 +18,8 @@ protocol KRHandlerProtocol: RequestHandler {
     var requiredFields: [String] {get}
     
     func getRequestParameters(request: WebRequest) -> [String : String]
+    
+    func validate(query: [String : AnyObject]) throws
     
     func kr_handleRequest(query: [String : String], request: WebRequest, response: WebResponse) throws
 }
@@ -45,10 +49,13 @@ extension KRHandlerProtocol {
         }
         
         do {
+            try self.validate(query)
             try self.kr_handleRequest(query, request: request, response: response)
         } catch let status as HTTPStatus {
             response.setHTTPStatus(status)
-        } catch let error as APIError {
+        } catch let error as HTTPStatusProtocol {
+            response.setHTTPStatus(error.status)
+        } catch let error as APIErrorProtocol {
             response.setAPIError(error)
         } catch {
             response.setHTTPStatus(._500)

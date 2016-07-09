@@ -16,7 +16,6 @@
 		21A040E91D2EAFBC00B38244 /* XCGLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21A040E81D2EAFBC00B38244 /* XCGLogger.framework */; };
 		21B3B8681D1B1B7E00047882 /* PerfectLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21B3B8671D1B1B7E00047882 /* PerfectLib.framework */; };
 		21B3B86A1D1B1B8600047882 /* PostgreSQL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21B3B8691D1B1B8600047882 /* PostgreSQL.framework */; };
-		21B3B86C1D1B1C2400047882 /* JSONSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B3B86B1D1B1C2400047882 /* JSONSource.swift */; };
 		21BE5A5B1D112B6800A0FCBA /* MarketServer.h in Headers */ = {isa = PBXBuildFile; fileRef = 21BE5A5A1D112B6800A0FCBA /* MarketServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		21BE5A621D112B6800A0FCBA /* MarketServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21BE5A571D112B6800A0FCBA /* MarketServer.framework */; };
 		21BE5A671D112B6800A0FCBA /* MarketServerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BE5A661D112B6800A0FCBA /* MarketServerTests.swift */; };
@@ -35,6 +34,7 @@
 		21F30FE61D19C71F00CA8B6E /* PSConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F30FE51D19C71F00CA8B6E /* PSConnection.swift */; };
 		21F30FE81D19C72F00CA8B6E /* PSExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F30FE71D19C72F00CA8B6E /* PSExtensions.swift */; };
 		21F30FEB1D19C80900CA8B6E /* DBColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F30FEA1D19C80900CA8B6E /* DBColumn.swift */; };
+		21F58CBA1D312EFF00D993F6 /* KRSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F58CB91D312EFF00D993F6 /* KRSerializable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,7 +70,6 @@
 		21A040E81D2EAFBC00B38244 /* XCGLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCGLogger.framework; path = Carthage/Build/Mac/XCGLogger.framework; sourceTree = "<group>"; };
 		21B3B8671D1B1B7E00047882 /* PerfectLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PerfectLib.framework; path = "../../../Library/Developer/Xcode/DerivedData/CHASHA-fgweoduxguuvjwbpyrsjuqrgaoux/Build/Products/Debug/PerfectLib.framework"; sourceTree = "<group>"; };
 		21B3B8691D1B1B8600047882 /* PostgreSQL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PostgreSQL.framework; path = "../../../Library/Developer/Xcode/DerivedData/CHASHA-fgweoduxguuvjwbpyrsjuqrgaoux/Build/Products/Debug/PostgreSQL.framework"; sourceTree = "<group>"; };
-		21B3B86B1D1B1C2400047882 /* JSONSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONSource.swift; sourceTree = "<group>"; };
 		21BE5A571D112B6800A0FCBA /* MarketServer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MarketServer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		21BE5A5A1D112B6800A0FCBA /* MarketServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarketServer.h; sourceTree = "<group>"; };
 		21BE5A5C1D112B6800A0FCBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -91,6 +90,7 @@
 		21F30FE51D19C71F00CA8B6E /* PSConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PSConnection.swift; sourceTree = "<group>"; };
 		21F30FE71D19C72F00CA8B6E /* PSExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PSExtensions.swift; sourceTree = "<group>"; };
 		21F30FEA1D19C80900CA8B6E /* DBColumn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBColumn.swift; sourceTree = "<group>"; };
+		21F58CB91D312EFF00D993F6 /* KRSerializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KRSerializable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,10 +119,8 @@
 			isa = PBXGroup;
 			children = (
 				21C0DEE81D11ECA7008C6B50 /* Statuses.swift */,
-				21D220961D14A65E00C95CDD /* APIError.swift */,
-				2173A69F1D13313E00C371AC /* KRHandlerProtocol.swift */,
-				218E716A1D128014008DED86 /* Extensions.swift */,
 				21D220981D14A6F700C95CDD /* Types.swift */,
+				218E716A1D128014008DED86 /* Extensions.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -168,6 +166,8 @@
 				218E71691D128009008DED86 /* Helpers */,
 				21C0DEEC1D11ED44008C6B50 /* Entities */,
 				21C0DEE31D11E599008C6B50 /* HTML */,
+				21F58CB81D312ED200D993F6 /* Protocols */,
+				21F58CBB1D31379200D993F6 /* Errors */,
 				21BE5A5A1D112B6800A0FCBA /* MarketServer.h */,
 				21BE5A5C1D112B6800A0FCBA /* Info.plist */,
 			);
@@ -196,7 +196,6 @@
 			children = (
 				21F30FDC1D198D8700CA8B6E /* Tables.swift */,
 				21C0DEEF1D11FEC7008C6B50 /* ENUser.swift */,
-				21B3B86B1D1B1C2400047882 /* JSONSource.swift */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -237,6 +236,23 @@
 				21F30FEA1D19C80900CA8B6E /* DBColumn.swift */,
 			);
 			name = Table;
+			sourceTree = "<group>";
+		};
+		21F58CB81D312ED200D993F6 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				2173A69F1D13313E00C371AC /* KRHandlerProtocol.swift */,
+				21F58CB91D312EFF00D993F6 /* KRSerializable.swift */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
+		21F58CBB1D31379200D993F6 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				21D220961D14A65E00C95CDD /* APIError.swift */,
+			);
+			name = Errors;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -369,8 +385,8 @@
 			files = (
 				21F30FE61D19C71F00CA8B6E /* PSConnection.swift in Sources */,
 				21F30FDD1D198D8700CA8B6E /* Tables.swift in Sources */,
-				21B3B86C1D1B1C2400047882 /* JSONSource.swift in Sources */,
 				21C0DEF01D11FEC7008C6B50 /* ENUser.swift in Sources */,
+				21F58CBA1D312EFF00D993F6 /* KRSerializable.swift in Sources */,
 				21BE5A741D112CB000A0FCBA /* IndexHandler.swift in Sources */,
 				218E71681D125EEC008DED86 /* UserHandler.swift in Sources */,
 				21D220991D14A6F700C95CDD /* Types.swift in Sources */,

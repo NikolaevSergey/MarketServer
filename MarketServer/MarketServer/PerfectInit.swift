@@ -69,14 +69,14 @@ func SetupPostgreSQLTables () {
 //    return responseString
 //}()
 
-class JSONHandler: KRHandlerProtocol {
-    let requestType         : RequestType           = .GET
-    let responseContentType : ResponseContentType   = .JSON
-    
-    func kr_handleRequest(query: [String : String], request: WebRequest, response: WebResponse) throws {
-        
-        response.addContentTypeHeader(.JSON)
-//        response.appendBodyString(JSONDatabaseSnapshot)
-        response.setHTTPStatus(._200)
-    }
-}
+//class JSONHandler: KRHandlerProtocol {
+//    let requestType         : RequestType           = .GET
+//    let responseContentType : ResponseContentType   = .JSON
+//    
+//    func kr_handleRequest(query: [String : String], request: WebRequest, response: WebResponse) throws {
+//        
+//        response.addContentTypeHeader(.JSON)
+////        response.appendBodyString(JSONDatabaseSnapshot)
+//        response.setHTTPStatus(._200)
+//    }
+//}

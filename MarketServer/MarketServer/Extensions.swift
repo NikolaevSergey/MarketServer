@@ -18,8 +18,8 @@ extension WebResponse {
         self.addHeader(type.name, value: type.value)
     }
     
-    func setAPIError (error: APIError) {
-        self.setHTTPStatus(error.type.status)
+    func setAPIError (error: APIErrorProtocol) {
+        self.setHTTPStatus(error.status)
         guard let parameters = try? JSONEncoder().encode(error.parameters) else {return}
         self.addContentTypeHeader(.JSON)
         self.appendBodyString(parameters)

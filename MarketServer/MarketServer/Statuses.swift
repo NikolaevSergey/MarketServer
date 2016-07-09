@@ -11,6 +11,8 @@ enum HTTPStatus: Int, ErrorType {
     case _201 = 201
     
     case _400 = 400
+    case _401 = 401
+    case _403 = 403
     case _404 = 404
     
     case _500 = 500
@@ -21,6 +23,8 @@ enum HTTPStatus: Int, ErrorType {
         case ._201: return "Created"
             
         case ._400: return "Bad Request"
+        case ._401: return "Not Authorized"
+        case ._403: return "Forbidden"
         case ._404: return "Not Found"
             
         case ._500: return "Internal Server Error"
@@ -51,4 +55,8 @@ enum HTTPStatusGroup: Int {
         guard let group = HTTPStatusGroup(rawValue: number) else {return nil}
         self = group
     }
+}
+
+protocol HTTPStatusProtocol: ErrorType {
+    var status: HTTPStatus {get}
 }

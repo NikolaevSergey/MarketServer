@@ -16,8 +16,21 @@ enum Users {
         
         var requiredFields: [String] {return ["first_name", "last_name", "email", "password"]}
         
+        func validate(query: [String : AnyObject]) throws {
+            
+            guard let email = query["email"] as? String else {throw HTTPStatus._400}
+            
+            try PostgresOperation({ (connection) in
+                let result = try connection.execute("SELECT id FROM \(TBUser.name) WHERE email=\(email)")
+                guard result.numTuples() == 0 else {
+                    throw APIErrorType.UserEmailExist
+                }
+            })
+        }
+        
         func kr_handleRequest(query: [String : String], request: WebRequest, response: WebResponse) throws {
             
+            let user = try ENUser(query: query)
             
             
         }
