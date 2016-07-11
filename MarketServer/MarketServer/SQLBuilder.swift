@@ -10,11 +10,15 @@ import Foundation
 
 private extension _ArrayType where Generator.Element == String {
     func SQLStringUnion () -> String {
-        return self.reduce("", combine: {return $0.characters.count == 0 ? $1 : "\($0), \($1)"})
+        return self.reduce("", combine: {return $0.characters.count == 0 ? "\($1)" : "\($0), \($1)"})
+    }
+    
+    func SQLStringUnionEscaped () -> String {
+        return self.reduce("", combine: {return $0.characters.count == 0 ? "\($1.escaped)" : "\($0), \($1.escaped)"})
     }
 }
 
-protocol SQLParent {
+protocol SQLRequestProtocol {
     func build () -> String
 }
 
@@ -27,7 +31,7 @@ struct SQLBuilder {
 
 //===
 
-struct SQLInsert: SQLParent {
+struct SQLInsert: SQLRequestProtocol {
     let table   : String
     let data : [String : Any]
     
@@ -39,11 +43,11 @@ struct SQLInsert: SQLParent {
         let columns = enumaratedData.map({return $0.element.0})
         let values = enumaratedData.map({return "\($0.element.1)"})
         
-        return "INSERT INTO \(self.table) (\(columns.SQLStringUnion())) VALUES (\(values.SQLStringUnion()))"
+        return "INSERT INTO \(self.table) (\(columns.SQLStringUnion())) VALUES (\(values.SQLStringUnionEscaped()))"
     }
 }
 
-struct SQLSelect: SQLParent {
+struct SQLSelect: SQLRequestProtocol {
     private let columns: [String]
     
     func FROM (table: String) -> SQLFrom {
@@ -58,7 +62,7 @@ struct SQLSelect: SQLParent {
     }
 }
 
-struct SQLUpdate: SQLParent {
+struct SQLUpdate: SQLRequestProtocol {
     private let table   : String
     private let data : [String : Any]
     
@@ -69,7 +73,8 @@ struct SQLUpdate: SQLParent {
     func build() -> String {
         
         let setQuery = self.data.enumerate().map({return $1}).reduce("", combine: {
-            let current = "\($1.0) = \($1.1)"
+            let valueString = "\($1.1)".escaped
+            let current = "\($1.0) = \(valueString)"
             return $0.characters.count == 0 ? current : "\($0), \(current)"
         })
         
@@ -77,7 +82,7 @@ struct SQLUpdate: SQLParent {
     }
 }
 
-struct SQLDelete: SQLParent {
+struct SQLDelete: SQLRequestProtocol {
     let table: String
     
     func WHERE (query: String) -> SQLWhere {
@@ -89,8 +94,8 @@ struct SQLDelete: SQLParent {
     }
 }
 
-struct SQLReturning {
-    private let parent: SQLParent
+struct SQLReturning: SQLRequestProtocol {
+    private let parent: SQLRequestProtocol
     private let columns: [String]
     
     func build() -> String {
@@ -100,8 +105,8 @@ struct SQLReturning {
 
 //===
 
-struct SQLFrom: SQLParent {
-    private let parent: SQLParent
+struct SQLFrom: SQLRequestProtocol, SQLLimitProtocol {
+    private let parent: SQLRequestProtocol
     private let table: String
     
     func WHERE (query: String) -> SQLWhere {
@@ -113,11 +118,25 @@ struct SQLFrom: SQLParent {
     }
 }
 
-struct SQLWhere: SQLParent {
-    private let parent: SQLParent
+struct SQLWhere: SQLRequestProtocol, SQLLimitProtocol {
+    private let parent: SQLRequestProtocol
     private let query: String
     
     func build() -> String {
         return "\(self.parent.build()) WHERE \(self.query)"
     }
+}
+
+struct SQLLimit: SQLRequestProtocol {
+    private let parent: SQLRequestProtocol
+    private let limit: Int
+    
+    func build() -> String {
+        return "\(self.parent.build()) LIMIT \(self.limit)"
+    }
+}
+
+protocol SQLLimitProtocol: SQLRequestProtocol {}
+extension SQLLimitProtocol {
+    func LIMIT (limit: Int) -> SQLLimit {return SQLLimit(parent: self, limit: limit)}
 }

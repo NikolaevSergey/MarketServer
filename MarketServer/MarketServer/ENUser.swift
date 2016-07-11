@@ -30,7 +30,12 @@ class ENUser: KRSerializable {
         try PostgresOperation({ (connection) in
             
             do {
-                let result = try connection.execute("SELECT first_name, last_name, password, email, phone FROM public.user WHERE id=\(id) LIMIT 1")
+                let request = SQLBuilder.SELECT([
+                    ENUser.Key.firstName,
+                    ENUser.Key.lastName,
+                    ENUser.Key.password,
+                    ENUser.Key.email, ENUser.Key.phone]).FROM(TBUser.name).WHERE("id=\(id)").LIMIT(1)
+                let result = try connection.execute(request)
                 
                 firstName   = result.getFieldString(0, fieldIndex: 0)
                 lastName    = result.getFieldString(0, fieldIndex: 1)
@@ -65,7 +70,20 @@ class ENUser: KRSerializable {
         var id: Int?
         
         try PostgresOperation({ (connection) in
-            let result = try connection.execute("INSERT INTO public.user (first_name, last_name, email, password) VALUES ('\(firstName)', '\(lastName)') RETURNING id")
+            
+            var values: [String : Any] = [
+                Key.firstName : firstName,
+                Key.lastName : lastName,
+                Key.email : email,
+                Key.password : password
+            ]
+            
+            if let lPhone = phone {
+                values.updateValue(lPhone, forKey: Key.phone)
+            }
+            
+            let request = SQLBuilder.INSERT(TBUser.name, data: values).RETURNING(["id"])
+            let result = try connection.execute(request)
             id = result.getFieldInt(0, fieldIndex: 0)
         })
         

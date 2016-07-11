@@ -11,13 +11,14 @@ import PostgreSQL
 
 class TBUser: DBTable {
     
-    static let name: String = "User"
+    static let name: String = "users"
     
     static let columns: [DBColumn] = [
         DBColumn(name: "id"         , type: .SERIAL , settings: [.PrimaryKey]   , notNull: true),
         DBColumn(name: "first_name" , type: .TEXT   , settings: []              , notNull: true),
         DBColumn(name: "last_name"  , type: .TEXT   , settings: []              , notNull: true),
         DBColumn(name: "email"      , type: .TEXT   , settings: []              , notNull: true),
+        DBColumn(name: "password"   , type: .TEXT   , settings: []              , notNull: true),
         DBColumn(name: "phone"      , type: .TEXT   , settings: []              , notNull: false)
     ]
     
@@ -26,15 +27,16 @@ class TBUser: DBTable {
 
 class TBToken: DBTable {
     
-    static let name: String = "Token"
+    static let name: String = "tokens"
     
     static let columns: [DBColumn] = [
-        DBColumn(name: "token"      , type: .TEXT , settings: [.PrimaryKey]   , notNull: true),
-        DBColumn(name: "timestamp"  , type: .INT  , settings: []              , notNull: true)
+        DBColumn(name: "id"         , type: .SERIAL     , settings: [.PrimaryKey]   , notNull: true),
+        DBColumn(name: "token"      , type: .TEXT       , settings: []              , notNull: true),
+        DBColumn(name: "timestamp"  , type: .INT        , settings: []              , notNull: true)
     ]
     
     static let relationships: [DBRelation] = [
-        DBRelation(columnName: "user", type: .INT, rTableName: "User", rColumnName: "id")
+        DBRelation(columnName: "user_id", type: .INT, rTableName: "Users", rColumnName: "id")
     ]
 }
 

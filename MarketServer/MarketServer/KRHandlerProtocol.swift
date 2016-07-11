@@ -57,7 +57,8 @@ extension KRHandlerProtocol {
             response.setHTTPStatus(error.status)
         } catch let error as APIErrorProtocol {
             response.setAPIError(error)
-        } catch {
+        } catch let error {
+            Logger.error("\(error)")
             response.setHTTPStatus(._500)
         }
     }

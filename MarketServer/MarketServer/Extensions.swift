@@ -25,6 +25,24 @@ extension WebResponse {
         self.appendBodyString(parameters)
     }
     
+    func addJSONResponse (response: [String : JSONValue]) throws {
+        
+        let jsonEncoder = JSONEncoder()
+        guard let responseString = try? jsonEncoder.encode(response) else {
+            throw HTTPStatus._500
+        }
+
+        
+        self.addContentTypeHeader(.JSON)
+        self.appendBodyString(responseString)
+    }
+    
+}
+
+extension String {
+    var escaped: String {
+        return "'\(self)'"
+    }
 }
 
 func DictFromStringTuple (tuples: [(String, String)]) -> [String : String] {

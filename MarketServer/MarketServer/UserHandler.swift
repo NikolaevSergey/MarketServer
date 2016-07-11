@@ -11,7 +11,7 @@ import PerfectLib
 enum Users {
     
     class RegistrationHandler: KRHandlerProtocol {
-        let requestType         : RequestType           = .GET
+        let requestType         : RequestType           = .POST
         let responseContentType : ResponseContentType   = .JSON
         
         var requiredFields: [String] {return ["first_name", "last_name", "email", "password"]}
@@ -21,7 +21,8 @@ enum Users {
             guard let email = query["email"] as? String else {throw HTTPStatus._400}
             
             try PostgresOperation({ (connection) in
-                let result = try connection.execute("SELECT id FROM \(TBUser.name) WHERE email=\(email)")
+                let request = SQLBuilder.SELECT(["id"]).FROM(TBUser.name).WHERE("email='\(email)'").build()
+                let result = try connection.execute(request)
                 guard result.numTuples() == 0 else {
                     throw APIErrorType.UserEmailExist
                 }
@@ -29,10 +30,21 @@ enum Users {
         }
         
         func kr_handleRequest(query: [String : String], request: WebRequest, response: WebResponse) throws {
+//            let jsonQuery = query.map({return $1 as Any})
+//            guard let jsonQuery = query as? JSONType else {throw HTTPStatus._500}
             
-//            let user = try ENUser(query: query)
+            let jsonQuery: JSONType = {
+                var dict: JSONType = [:]
+                query.forEach({dict.updateValue($1, forKey: $0)})
+                return dict
+            }()
             
             
+            let user = try ENUser(JSON: jsonQuery)
+            let token = try ENToken(user: user)
+            
+            try response.addJSONResponse(["token" : token.token])
+            response.setHTTPStatus(._201)
         }
     }
     
@@ -68,7 +80,7 @@ enum Users {
 //        guard let responseString = try? jsonEncoder.encode(["user" : responseDict]) else {
 //            throw HTTPStatus._500
 //        }
-//        
+//
 //        response.addContentTypeHeader(.JSON)
 //        response.appendBodyString(responseString)
 //        response.setHTTPStatus(._201)

@@ -10,7 +10,6 @@ import PostgreSQL
 
 func PostgresOperation (block: ((connection: PGConnection) throws -> Void)) throws {
     let database = try PSConnection()
+    defer {database.connection.close()}
     try block(connection: database.connection)
-    database.connection.close()
-    
 }
