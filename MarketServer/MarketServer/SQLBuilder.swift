@@ -32,8 +32,8 @@ struct SQLBuilder {
 //===
 
 struct SQLInsert: SQLRequestProtocol {
-    let table   : String
-    let data : [String : Any]
+    private let table   : String
+    private let data : [String : Any]
     
     func RETURNING (columns: [String]) -> SQLReturning {return SQLReturning(parent: self, columns: columns)}
     

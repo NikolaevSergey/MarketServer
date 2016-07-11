@@ -39,3 +39,28 @@ class TBToken: DBTable {
         DBRelation(columnName: ENToken.Key.UserID, type: .INT, rTableName: TBUser.Name, rColumnName: ENUser.Key.id)
     ]
 }
+
+class TBCategory: DBTable {
+    static let Name: String = "categories"
+    
+    static let Columns: [DBColumn] = [
+        DBColumn(name: ENCategory.Key.ID         , type: .SERIAL     , settings: [.PrimaryKey]   , notNull: true),
+        DBColumn(name: ENCategory.Key.Name       , type: .TEXT       , settings: []              , notNull: true)
+    ]
+    
+    static let Relationships: [DBRelation] = []
+}
+
+class TBUnit: DBTable {
+    static let Name: String = "units"
+    
+    static let Columns: [DBColumn] = [
+        DBColumn(name: ENUnit.Key.ID            , type: .SERIAL     , settings: [.PrimaryKey]   , notNull: true),
+        DBColumn(name: ENUnit.Key.Name          , type: .TEXT       , settings: []              , notNull: true),
+        DBColumn(name: ENUnit.Key.Price         , type: .REAL       , settings: []              , notNull: true)
+    ]
+    
+    static let Relationships: [DBRelation] = [
+        DBRelation(columnName: ENUnit.Key.CategoryID, type: .INT, rTableName: TBCategory.Name, rColumnName: ENCategory.Key.ID)
+    ]
+}
