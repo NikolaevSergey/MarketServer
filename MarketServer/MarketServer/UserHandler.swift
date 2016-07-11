@@ -30,7 +30,7 @@ enum Users {
         
         func kr_handleRequest(query: [String : String], request: WebRequest, response: WebResponse) throws {
             
-            let user = try ENUser(query: query)
+//            let user = try ENUser(query: query)
             
             
         }
