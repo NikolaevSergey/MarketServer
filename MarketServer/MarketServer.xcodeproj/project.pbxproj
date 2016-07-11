@@ -36,7 +36,7 @@
 		21F30FEB1D19C80900CA8B6E /* DBColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F30FEA1D19C80900CA8B6E /* DBColumn.swift */; };
 		21F58CBA1D312EFF00D993F6 /* KRSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F58CB91D312EFF00D993F6 /* KRSerializable.swift */; };
 		21F58CBD1D31384000D993F6 /* ENToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F58CBC1D31384000D993F6 /* ENToken.swift */; };
-		21F58CBF1D31436800D993F6 /* SQLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F58CBE1D31436800D993F6 /* SQLRequest.swift */; };
+		2B2D60AF1D33CCDA002304C7 /* SQLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2D60AE1D33CCDA002304C7 /* SQLBuilder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,7 +94,7 @@
 		21F30FEA1D19C80900CA8B6E /* DBColumn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBColumn.swift; sourceTree = "<group>"; };
 		21F58CB91D312EFF00D993F6 /* KRSerializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KRSerializable.swift; sourceTree = "<group>"; };
 		21F58CBC1D31384000D993F6 /* ENToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENToken.swift; sourceTree = "<group>"; };
-		21F58CBE1D31436800D993F6 /* SQLRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLRequest.swift; sourceTree = "<group>"; };
+		2B2D60AE1D33CCDA002304C7 /* SQLBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLBuilder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,7 +125,6 @@
 				21C0DEE81D11ECA7008C6B50 /* Statuses.swift */,
 				21D220981D14A6F700C95CDD /* Types.swift */,
 				218E716A1D128014008DED86 /* Extensions.swift */,
-				21F58CBE1D31436800D993F6 /* SQLRequest.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -228,6 +227,7 @@
 		21F30FE21D19C52D00CA8B6E /* Databases */ = {
 			isa = PBXGroup;
 			children = (
+				2B2D60AE1D33CCDA002304C7 /* SQLBuilder.swift */,
 				21F30FE91D19C7F800CA8B6E /* Table */,
 				21F30FDE1D19C46400CA8B6E /* SQLite */,
 				21F30FD91D198A8000CA8B6E /* PostgreSQL */,
@@ -394,6 +394,7 @@
 				21C0DEF01D11FEC7008C6B50 /* ENUser.swift in Sources */,
 				21F58CBA1D312EFF00D993F6 /* KRSerializable.swift in Sources */,
 				21BE5A741D112CB000A0FCBA /* IndexHandler.swift in Sources */,
+				2B2D60AF1D33CCDA002304C7 /* SQLBuilder.swift in Sources */,
 				218E71681D125EEC008DED86 /* UserHandler.swift in Sources */,
 				21D220991D14A6F700C95CDD /* Types.swift in Sources */,
 				2140215E1D16FF0500204926 /* PSDatabase.swift in Sources */,
@@ -403,7 +404,6 @@
 				21C0DEE91D11ECA7008C6B50 /* Statuses.swift in Sources */,
 				2173A6A01D13313E00C371AC /* KRHandlerProtocol.swift in Sources */,
 				21F30FE41D19C6F400CA8B6E /* PSSettings.swift in Sources */,
-				21F58CBF1D31436800D993F6 /* SQLRequest.swift in Sources */,
 				21C0DEEE1D11EE4F008C6B50 /* SQLiteDatabase.swift in Sources */,
 				2122B9E41D2EF27900E3E645 /* Settings.swift in Sources */,
 				21C0DEE71D11EC57008C6B50 /* Constants.swift in Sources */,
