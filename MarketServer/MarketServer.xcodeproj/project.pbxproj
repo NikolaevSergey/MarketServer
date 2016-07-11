@@ -162,8 +162,8 @@
 		21BE5A591D112B6800A0FCBA /* MarketServer */ = {
 			isa = PBXGroup;
 			children = (
-				21C0DEE61D11EC57008C6B50 /* Constants.swift */,
 				218E716C1D12938A008DED86 /* PerfectInit.swift */,
+				21C0DEE61D11EC57008C6B50 /* Constants.swift */,
 				2122B9E31D2EF27900E3E645 /* Settings.swift */,
 				21F30FE21D19C52D00CA8B6E /* Databases */,
 				218E716E1D1293A6008DED86 /* Handlers */,

@@ -12,10 +12,12 @@ extension PGConnection {
     
     func execute(statement: String) throws -> PostgreSQL.PGResult {
         
+        Logger.info(statement)
+        
         let queryResult = self.exec(statement)
         
         if queryResult.errorMessage().characters.count > 0 {
-            Logger.error("Statement: \(statement)\nError: \(queryResult.errorMessage())")
+            Logger.error("Error: \(queryResult.errorMessage())")
         }
         
         guard queryResult.status() == .CommandOK || queryResult.status() == .TuplesOK else {

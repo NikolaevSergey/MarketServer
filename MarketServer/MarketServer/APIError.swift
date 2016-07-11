@@ -48,11 +48,13 @@ class APIError: APIErrorProtocol {
 enum APIErrorType: APIErrorProtocol {
     case UserNotFound
     case UserEmailExist
+    case UserWrongPassword
     
     var message: String {
         switch self {
         case .UserNotFound      : return "User not founded"
         case .UserEmailExist    : return "User with this email address already exist"
+        case .UserWrongPassword : return "Wrong password"
         }
     }
     
@@ -60,6 +62,7 @@ enum APIErrorType: APIErrorProtocol {
         switch self {
         case .UserNotFound      : return ._404
         case .UserEmailExist    : return ._403
+        case .UserWrongPassword : return ._403
         }
     }
     

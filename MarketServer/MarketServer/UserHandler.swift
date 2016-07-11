@@ -30,8 +30,6 @@ enum Users {
         }
         
         func kr_handleRequest(query: [String : String], request: WebRequest, response: WebResponse) throws {
-//            let jsonQuery = query.map({return $1 as Any})
-//            guard let jsonQuery = query as? JSONType else {throw HTTPStatus._500}
             
             let jsonQuery: JSONType = {
                 var dict: JSONType = [:]
@@ -41,6 +39,25 @@ enum Users {
             
             
             let user = try ENUser(JSON: jsonQuery)
+            let token = try ENToken(user: user)
+            
+            try response.addJSONResponse(["token" : token.token])
+            response.setHTTPStatus(._201)
+        }
+    }
+    
+    class AuthorizationHandler: KRHandlerProtocol {
+        let requestType         : RequestType           = .GET
+        let responseContentType : ResponseContentType   = .JSON
+        
+        var requiredFields: [String] {return ["email", "password"]}
+        
+        func kr_handleRequest(query: [String : String], request: WebRequest, response: WebResponse) throws {
+            
+            let user = try ENUser(email: query[ENUser.Key.email]!)
+            
+            guard user.password == query[ENUser.Key.password]! else {throw APIErrorType.UserWrongPassword}
+            
             let token = try ENToken(user: user)
             
             try response.addJSONResponse(["token" : token.token])

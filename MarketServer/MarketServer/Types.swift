@@ -20,11 +20,11 @@ enum ResponseContentType {
     var name: String {return ResponseContentType.Name}
 }
 
-enum RequestType {
-    case GET
-    case POST
-    case PATCH
-    case PUT
-    case DELETE
+enum RequestType: String {
+    case GET = "GET"
+    case POST = "POST"
+    case PATCH = "PATCH"
+    case PUT = "PUT"
+    case DELETE = "DELETE"
 }
 

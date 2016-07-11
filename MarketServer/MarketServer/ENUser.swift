@@ -57,7 +57,48 @@ class ENUser: KRSerializable {
         self.email      = email
         self.password   = password
         self.phone      = phone
-
+    }
+    
+    init (email: String) throws {
+        
+        var id          : Int!
+        var firstName   : String!
+        var lastName    : String!
+        var password    : String!
+        
+        var phone: String?
+        
+        try PostgresOperation({ (connection) in
+            
+            do {
+                let request = SQLBuilder.SELECT([
+                    Key.id,
+                    Key.firstName,
+                    Key.lastName,
+                    Key.password,
+                    Key.phone]).FROM(TBUser.name).WHERE("email=\(email.escaped)").LIMIT(1)
+                let result = try connection.execute(request)
+                
+                id          = result.getFieldInt(0, fieldIndex: 0)
+                firstName   = result.getFieldString(0, fieldIndex: 1)
+                lastName    = result.getFieldString(0, fieldIndex: 2)
+                password    = result.getFieldString(0, fieldIndex: 3)
+                phone       = result.getFieldString(0, fieldIndex: 4)
+            } catch let error as PGConnectionError {
+                if case .ReturnedEmpty = error {
+                    throw Error.NotFound
+                }
+            }
+            
+            
+        })
+        
+        self.id = id
+        self.firstName  = firstName
+        self.lastName   = lastName
+        self.email      = email
+        self.password   = password
+        self.phone      = phone
     }
     
     init (firstName: String, lastName: String, email: String, password: String, phone: String? = nil) throws {

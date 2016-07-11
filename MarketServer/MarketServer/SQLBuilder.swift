@@ -58,7 +58,7 @@ struct SQLSelect: SQLRequestProtocol {
         guard self.columns.count != 0 else {
             return "SELECT *"
         }
-        return "SELECT (\(self.columns.SQLStringUnion()))"
+        return "SELECT \(self.columns.SQLStringUnion())"
     }
 }
 
