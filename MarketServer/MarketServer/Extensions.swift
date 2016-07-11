@@ -18,13 +18,31 @@ extension WebResponse {
         self.addHeader(type.name, value: type.value)
     }
     
-    func setAPIError (error: APIError) {
-        self.setHTTPStatus(error.type.status)
+    func setAPIError (error: APIErrorProtocol) {
+        self.setHTTPStatus(error.status)
         guard let parameters = try? JSONEncoder().encode(error.parameters) else {return}
         self.addContentTypeHeader(.JSON)
         self.appendBodyString(parameters)
     }
     
+    func addJSONResponse (response: [String : JSONValue]) throws {
+        
+        let jsonEncoder = JSONEncoder()
+        guard let responseString = try? jsonEncoder.encode(response) else {
+            throw HTTPStatus._500
+        }
+
+        
+        self.addContentTypeHeader(.JSON)
+        self.appendBodyString(responseString)
+    }
+    
+}
+
+extension String {
+    var escaped: String {
+        return "'\(self)'"
+    }
 }
 
 func DictFromStringTuple (tuples: [(String, String)]) -> [String : String] {

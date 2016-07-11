@@ -9,9 +9,9 @@
 import PostgreSQL
 
 protocol DBTable {
-    var name            : String {get}
-    var columns         : [DBColumn] {get}
-    var relationships   : [DBRelation] {get}
+    static var name            : String {get}
+    static var columns         : [DBColumn] {get}
+    static var relationships   : [DBRelation] {get}
     
 //    init (name: String, columns: [DBColumn] = [], relationships: [DBRelation] = []) {
 //        self.name           = name
@@ -25,7 +25,7 @@ protocol DBTable {
 extension DBTable {
     
     func getColumn (name: String) -> DBColumn? {
-        for column in self.columns {
+        for column in self.dynamicType.columns {
             guard column.name == name else {continue}
             return column
         }
@@ -33,7 +33,7 @@ extension DBTable {
     }
     
     func getRelation (name: String) -> DBRelation? {
-        for relationship in self.relationships {
+        for relationship in self.dynamicType.relationships {
             guard relationship.columnName == name else {continue}
             return relationship
         }
@@ -44,13 +44,13 @@ extension DBTable {
         
         var query = "CREATE TABLE IF NOT EXISTS"
         
-        query += " \(self.name) "
+        query += " \(self.dynamicType.name) "
         
-        guard self.columns.count > 0 else {return query}
+        guard self.dynamicType.columns.count > 0 else {return query}
         
         query += "("
         
-        self.columns.forEach({
+        self.dynamicType.columns.forEach({
             if query.characters.last != "(" {
                 query += ", "
             }
@@ -58,7 +58,7 @@ extension DBTable {
             
         })
         
-        self.relationships.forEach({
+        self.dynamicType.relationships.forEach({
             if query.characters.last != "(" {
                 query += ", "
             }
@@ -71,8 +71,8 @@ extension DBTable {
     }
     
     var allColumnsNames: [String] {
-        let columnNames     = self.columns.map({$0.name})
-        let relationNames   = self.relationships.map({$0.columnName})
+        let columnNames     = self.dynamicType.columns.map({$0.name})
+        let relationNames   = self.dynamicType.relationships.map({$0.columnName})
         return columnNames + relationNames
     }
     
@@ -88,7 +88,7 @@ extension DBTable {
                 return $0.0.characters.count == 0 ? $0.1 : "\($0.0), \($0.1)"
             })
             
-            return try database.connection.execute("SELECT \(columnsQuery) FROM \(self.name)")
+            return try database.connection.execute("SELECT \(columnsQuery) FROM \(self.dynamicType.name)")
         } catch {}
         
         return nil

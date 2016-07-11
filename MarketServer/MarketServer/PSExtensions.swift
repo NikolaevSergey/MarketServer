@@ -14,6 +14,10 @@ extension PGConnection {
         
         let queryResult = self.exec(statement)
         
+        if queryResult.errorMessage().characters.count > 0 {
+            Logger.error("Statement: \(statement)\nError: \(queryResult.errorMessage())")
+        }
+        
         guard queryResult.status() == .CommandOK || queryResult.status() == .TuplesOK else {
             throw PGConnectionError.QueryError
         }
@@ -29,6 +33,10 @@ extension PGConnection {
         }
         
         return queryResult
+    }
+    
+    func execute(request: SQLRequestProtocol) throws -> PostgreSQL.PGResult {
+        return try self.execute(request.build())
     }
     
 }

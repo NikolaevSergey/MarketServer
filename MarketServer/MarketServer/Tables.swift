@@ -10,25 +10,33 @@ import PerfectLib
 import PostgreSQL
 
 class TBUser: DBTable {
-    let name: String = "User"
-    let columns: [DBColumn] = [
+    
+    static let name: String = "users"
+    
+    static let columns: [DBColumn] = [
         DBColumn(name: "id"         , type: .SERIAL , settings: [.PrimaryKey]   , notNull: true),
         DBColumn(name: "first_name" , type: .TEXT   , settings: []              , notNull: true),
         DBColumn(name: "last_name"  , type: .TEXT   , settings: []              , notNull: true),
         DBColumn(name: "email"      , type: .TEXT   , settings: []              , notNull: true),
+        DBColumn(name: "password"   , type: .TEXT   , settings: []              , notNull: true),
         DBColumn(name: "phone"      , type: .TEXT   , settings: []              , notNull: false)
     ]
-    let relationships: [DBRelation] = []
+    
+    static let relationships: [DBRelation] = []
 }
 
 class TBToken: DBTable {
-    let name: String = "Token"
-    let columns: [DBColumn] = [
-        DBColumn(name: "token"      , type: .TEXT , settings: [.PrimaryKey]   , notNull: true),
-        DBColumn(name: "timestamp"  , type: .INT  , settings: []              , notNull: true)
+    
+    static let name: String = "tokens"
+    
+    static let columns: [DBColumn] = [
+        DBColumn(name: "id"         , type: .SERIAL     , settings: [.PrimaryKey]   , notNull: true),
+        DBColumn(name: "token"      , type: .TEXT       , settings: []              , notNull: true),
+        DBColumn(name: "timestamp"  , type: .INT        , settings: []              , notNull: true)
     ]
-    let relationships: [DBRelation] = [
-        DBRelation(columnName: "user", type: .INT, rTableName: "User", rColumnName: "id")
+    
+    static let relationships: [DBRelation] = [
+        DBRelation(columnName: "user_id", type: .INT, rTableName: "Users", rColumnName: "id")
     ]
 }
 
