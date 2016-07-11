@@ -48,7 +48,7 @@ extension KRHandlerProtocol {
         for key in self.requiredFields {
             guard query[key] != nil else {
                 Logger.warning("Validation failed for key \(key)")
-                response.setHTTPStatus(._400);
+                response.setHTTPStatus(._400)
                 return
             }
         }

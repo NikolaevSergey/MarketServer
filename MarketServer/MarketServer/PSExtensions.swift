@@ -27,16 +27,6 @@ extension PGConnection {
         return queryResult
     }
     
-    func execute(statement: String, params: [String]) throws -> PostgreSQL.PGResult {
-        let queryResult = self.exec(statement, params: params)
-        
-        guard queryResult.status() == .CommandOK || queryResult.status() == .TuplesOK else {
-            throw PGConnectionError.QueryError
-        }
-        
-        return queryResult
-    }
-    
     func execute(request: SQLRequestProtocol) throws -> PostgreSQL.PGResult {
         return try self.execute(request.build())
     }
