@@ -15,7 +15,8 @@ public func PerfectServerModuleInit() {
     Routing.Handler.registerGlobally()
     
     // MARK: Users
-    Routing.Routes["POST", ["/users"]] = {(_: WebResponse) in return Users.RegistrationHandler()}
+    Routing.Routes[RequestType.POST.rawValue, ["/users"]] = {(_: WebResponse) in return Users.RegistrationHandler()}
+    Routing.Routes[RequestType.GET.rawValue, ["/auth"]] = {(_: WebResponse) in return Users.AuthorizationHandler()}
 //    Routing.Routes["GET", ["/snapshot"]]   = {(_:WebResponse) in return JSONHandler()}
     
     SetupPostgreSQLTables()

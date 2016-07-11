@@ -27,6 +27,7 @@ protocol KRHandlerProtocol: RequestHandler {
 extension KRHandlerProtocol {
     
     var requiredFields: [String] {return []}
+    func validate(query: [String : AnyObject]) throws {}
     
     func getRequestParameters(request: WebRequest) -> [String : String] {
         switch self.requestType {
@@ -45,7 +46,11 @@ extension KRHandlerProtocol {
         let query = self.getRequestParameters(request)
         
         for key in self.requiredFields {
-            guard query[key] != nil else {response.setHTTPStatus(._400); return}
+            guard query[key] != nil else {
+                Logger.warning("Validation failed for key \(key)")
+                response.setHTTPStatus(._400)
+                return
+            }
         }
         
         do {

@@ -21,6 +21,7 @@ class PSConnection {
         self.connection.connectdb(settings.getConnectString())
         
         guard self.connection.status() != .Bad else {
+            Logger.severe("Connection to database failed: \(self.connection.status())")
             throw PostgresDBError.ConnectionFailed
         }
     }
