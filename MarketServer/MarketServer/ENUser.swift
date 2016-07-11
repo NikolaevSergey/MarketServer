@@ -34,7 +34,7 @@ class ENUser: KRSerializable {
                     ENUser.Key.firstName,
                     ENUser.Key.lastName,
                     ENUser.Key.password,
-                    ENUser.Key.email, ENUser.Key.phone]).FROM(TBUser.name).WHERE("id=\(id)").LIMIT(1)
+                    ENUser.Key.email, ENUser.Key.phone]).FROM(TBUser.Name).WHERE("id=\(id)").LIMIT(1)
                 let result = try connection.execute(request)
                 
                 firstName   = result.getFieldString(0, fieldIndex: 0)
@@ -76,7 +76,7 @@ class ENUser: KRSerializable {
                     Key.firstName,
                     Key.lastName,
                     Key.password,
-                    Key.phone]).FROM(TBUser.name).WHERE("email=\(email.escaped)").LIMIT(1)
+                    Key.phone]).FROM(TBUser.Name).WHERE("email=\(email.escaped)").LIMIT(1)
                 let result = try connection.execute(request)
                 
                 id          = result.getFieldInt(0, fieldIndex: 0)
@@ -123,7 +123,7 @@ class ENUser: KRSerializable {
                 values.updateValue(lPhone, forKey: Key.phone)
             }
             
-            let request = SQLBuilder.INSERT(TBUser.name, data: values).RETURNING(["id"])
+            let request = SQLBuilder.INSERT(TBUser.Name, data: values).RETURNING(["id"])
             let result = try connection.execute(request)
             id = result.getFieldInt(0, fieldIndex: 0)
         })
@@ -187,52 +187,3 @@ extension ENUser {
         }
     }
 }
-
-
-
-//class DBUser {
-//    let id          : Int
-//    let firstName   : String
-//    let lastName    : String
-//    
-//    init (id: Int) throws {
-//        
-//        var firstName   : String = ""
-//        var lastName    : String = ""
-//
-//        try PostgresOperation({ (connection) in
-//            
-//            do {
-//                let result = try connection.execute("SELECT first_name, last_name FROM public.user WHERE id=\(id) LIMIT 1")
-//                
-//                firstName = result.getFieldString(0, fieldIndex: 0)
-//                lastName = result.getFieldString(0, fieldIndex: 1)
-//            } catch let error as PGConnectionError {
-//                if case .ReturnedEmpty = error {
-//                    throw DBUserError.NotFound
-//                }
-//            }
-//            
-//            
-//        })
-//
-//        self.firstName  = firstName
-//        self.lastName   = lastName
-//        self.id         = id
-//    }
-//    
-//    init (firstName: String, lastName: String) throws {
-//        
-//        var id: Int = 0
-//        
-//        try PostgresOperation({ (connection) in
-//            let result = try connection.execute("INSERT INTO public.user (first_name,last_name) VALUES ('\(firstName)', '\(lastName)') RETURNING id")
-//            
-//            id = result.getFieldInt(0, fieldIndex: 0)
-//        })
-//        
-//        self.firstName  = firstName
-//        self.lastName   = lastName
-//        self.id         = id
-//    }
-//}

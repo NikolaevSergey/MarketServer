@@ -23,8 +23,8 @@ enum Settings {
 
 func SetupPostgreSQLTables () {
     
-    let userQuery = TBUser().generateCreatingQuery()
-    let tokenQuery = TBToken().generateCreatingQuery()
+    let userQuery = TBUser.generateCreatingQuery()
+    let tokenQuery = TBToken.generateCreatingQuery()
     
     do {
         try PostgresOperation({ (connection) in

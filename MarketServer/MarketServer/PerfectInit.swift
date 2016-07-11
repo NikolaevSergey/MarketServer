@@ -15,10 +15,14 @@ public func PerfectServerModuleInit() {
     Routing.Handler.registerGlobally()
     
     // MARK: Users
-    Routing.Routes[RequestType.POST.rawValue, ["/users"]] = {(_: WebResponse) in return Users.RegistrationHandler()}
-    Routing.Routes[RequestType.GET.rawValue, ["/auth"]] = {(_: WebResponse) in return Users.AuthorizationHandler()}
-//    Routing.Routes["GET", ["/snapshot"]]   = {(_:WebResponse) in return JSONHandler()}
+    Routing.Routes[RequestType.POST.rawValue, ["/users"]] = {(_: WebResponse) in return Handler.Users.RegistrationHandler()}
+    Routing.Routes[RequestType.GET.rawValue, ["/auth"]] = {(_: WebResponse) in return Handler.Users.AuthorizationHandler()}
     
     SetupPostgreSQLTables()
     
+}
+
+enum Handler {
+    enum Users {}
+    enum Categories {}
 }

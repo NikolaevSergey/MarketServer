@@ -24,7 +24,7 @@ class ENToken {
         var id: Int!
         
         try PostgresOperation({ (connection) in
-            let request = SQLBuilder.INSERT(TBToken.name, data: [
+            let request = SQLBuilder.INSERT(TBToken.Name, data: [
                 Key.Token   : token,
                 Key.Date    : timestamp,
                 Key.UserID  : userID

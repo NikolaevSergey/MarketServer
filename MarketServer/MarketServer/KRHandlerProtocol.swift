@@ -29,6 +29,8 @@ extension KRHandlerProtocol {
     var requiredFields: [String] {return []}
     func validate(query: [String : AnyObject]) throws {}
     
+    var responseContentType: ResponseContentType {return .JSON}
+    
     func getRequestParameters(request: WebRequest) -> [String : String] {
         switch self.requestType {
         case .GET   : return DictFromStringTuple(request.queryParams)
@@ -56,12 +58,16 @@ extension KRHandlerProtocol {
         do {
             try self.validate(query)
             try self.kr_handleRequest(query, request: request, response: response)
+            
         } catch let status as HTTPStatus {
             response.setHTTPStatus(status)
+            
         } catch let error as HTTPStatusProtocol {
             response.setHTTPStatus(error.status)
+            
         } catch let error as APIErrorProtocol {
             response.setAPIError(error)
+            
         } catch let error {
             Logger.error("\(error)")
             response.setHTTPStatus(._500)
