@@ -9,8 +9,7 @@
 import Foundation
 
 enum ENCategory: Int {
-    case Domestic = 0
-    case Foreign
+    case Novel = 0
     case Child
     case Fantasy
     case Detective
@@ -21,8 +20,7 @@ enum ENCategory: Int {
     
     var name: String {
         switch self {
-        case Domestic       : return "Отечественная литература"
-        case Foreign        : return "Зарубежная литература"
+        case Novel          : return "Роман"
         case Child          : return "Детская литература"
         case Fantasy        : return "Фэнтези"
         case Detective      : return "Детектив"

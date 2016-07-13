@@ -16,6 +16,9 @@ enum ENTag: Int {
     case ParentsChoice
     case School
     case Exams
+    case Classic
+    case Domestic
+    case Foreign
     
     var id: Int {return self.rawValue}
     
@@ -28,7 +31,26 @@ enum ENTag: Int {
         case ParentsChoice  : return "Выбор родителей"
         case School         : return "Школьная программа"
         case Exams          : return "ЕГЭ/ГИА/ОГЭ"
+        case Classic        : return "Классика"
+        case Domestic       : return "Отечественная литература"
+        case Foreign        : return "Зарубежная литература"
         }
+    }
+}
+
+extension ENTag {
+    enum Key {
+        static let ID       = "id"
+        static let Name     = "name"
+    }
+}
+
+extension ENTag: KRSerializable {
+    func serialize() -> JSONType {
+        return [
+            Key.ID      : self.id,
+            Key.Name    : self.name
+        ]
     }
 }
 
