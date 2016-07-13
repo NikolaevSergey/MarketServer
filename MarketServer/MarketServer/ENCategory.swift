@@ -8,36 +8,36 @@
 
 import Foundation
 
-class ENCategory {
-    let id: Int
-    let name: String
+enum ENCategory: Int {
+    case Domestic = 0
+    case Foreign
+    case Child
+    case Fantasy
+    case Detective
+    case ScienceFiction
+    case PulpFiction
     
-    init (name: String) throws {
-        var id: Int!
-        
-        try PostgresOperation { (connection) in
-            let request = SQLBuilder.INSERT(TBCategory.Name, data: [Key.Name : name]).RETURNING([Key.ID])
-            let result = try connection.execute(request)
-            
-            id = result.getFieldInt(0, fieldIndex: 0)
+    var id: Int {return self.rawValue}
+    
+    var name: String {
+        switch self {
+        case Domestic       : return "Отечественная литература"
+        case Foreign        : return "Зарубежная литература"
+        case Child          : return "Детская литература"
+        case Fantasy        : return "Фэнтези"
+        case Detective      : return "Детектив"
+        case ScienceFiction : return "Научная фантастика"
+        case PulpFiction    : return "Бульварное чтиво"
         }
-        
-        self.id = id
-        self.name = name
     }
-    
-    init (id: Int) throws {
-        var name: String!
-        
-        try PostgresOperation({ (connection) in
-            let request = SQLBuilder.SELECT([Key.Name]).FROM(TBCategory.Name).WHERE("\(Key.ID)=\(id)").LIMIT(1)
-            let result = try connection.execute(request)
-            
-            name = result.getFieldString(0, fieldIndex: 0)
-        })
-        
-        self.id = id
-        self.name = name
+}
+
+extension ENCategory: KRSerializable {
+    func serialize () -> JSONType {
+        return [
+            Key.ID      : self.id,
+            Key.Name    : self.name
+        ]
     }
 }
 

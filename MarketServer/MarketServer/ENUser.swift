@@ -8,7 +8,7 @@
 
 import PerfectLib
 
-class ENUser: KRSerializable {
+class ENUser {
     let id: Int
     
     var password: String
@@ -44,7 +44,7 @@ class ENUser: KRSerializable {
                 phone       = result.getFieldString(0, fieldIndex: 4)
             } catch let error as PGConnectionError {
                 if case .ReturnedEmpty = error {
-                    throw Error.NotFound
+                    throw ENError.NotFound
                 }
             }
             
@@ -86,7 +86,7 @@ class ENUser: KRSerializable {
                 phone       = result.getFieldString(0, fieldIndex: 4)
             } catch let error as PGConnectionError {
                 if case .ReturnedEmpty = error {
-                    throw Error.NotFound
+                    throw ENError.NotFound
                 }
             }
             
@@ -128,23 +128,25 @@ class ENUser: KRSerializable {
             id = result.getFieldInt(0, fieldIndex: 0)
         })
         
-        guard let lId = id else {throw Error.Unknown}
+        guard let lId = id else {throw ENError.Unknown}
         self.id = lId
     }
     
     // MARK: - KRSerializable
     
-    convenience required init (JSON: JSONType) throws {
-        guard   let firstName   = JSON[Key.firstName] as? String,
-            lastName    = JSON[Key.lastName] as? String,
-            email       = JSON[Key.email] as? String,
-            password    = JSON[Key.password] as? String  else {throw Error.RequiredFieldsMissing}
+    convenience required init (dict: [String : Any]) throws {
+        guard   let firstName   = dict[Key.firstName] as? String,
+            lastName    = dict[Key.lastName] as? String,
+            email       = dict[Key.email] as? String,
+            password    = dict[Key.password] as? String  else {throw ENError.RequiredFieldsMissing}
         
-        let phone = JSON[Key.phone] as? String
+        let phone = dict[Key.phone] as? String
         
         try self.init(firstName: firstName, lastName: lastName, email: email, password: password, phone: phone)
     }
-    
+}
+
+extension ENUser: KRSerializable {
     func serialize () -> JSONType {
         var dict: JSONType = [
             Key.id : self.id,
@@ -169,21 +171,5 @@ extension ENUser {
         static let email      = "email"
         static let password   = "password"
         static let phone      = "phone"
-    }
-}
-
-extension ENUser {
-    enum Error: ErrorType, HTTPStatusProtocol {
-        case NotFound
-        case RequiredFieldsMissing
-        case Unknown
-        
-        var status: HTTPStatus {
-            switch self {
-            case .NotFound              : return ._404
-            case .RequiredFieldsMissing : return ._400
-            case .Unknown               : return ._500
-            }
-        }
     }
 }

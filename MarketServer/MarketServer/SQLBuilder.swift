@@ -47,11 +47,11 @@ struct SQLInsert: SQLRequestProtocol {
     }
 }
 
-struct SQLSelect: SQLRequestProtocol {
+struct SQLSelect: SQLRequestProtocol, SQLFromProtocol {
     private let columns: [String]
     
-    func FROM (table: String) -> SQLFrom {
-        return SQLFrom(parent: self, table: table)
+    func COUNT () -> SQLCount {
+        return SQLCount(parent: self)
     }
     
     func build() -> String {
@@ -59,6 +59,13 @@ struct SQLSelect: SQLRequestProtocol {
             return "SELECT *"
         }
         return "SELECT \(self.columns.SQLStringUnion())"
+    }
+    
+    private func getColumns () -> String {
+        guard self.columns.count != 0 else {
+            return "*"
+        }
+        return self.columns.SQLStringUnion()
     }
 }
 
@@ -127,6 +134,14 @@ struct SQLWhere: SQLRequestProtocol, SQLLimitProtocol {
     }
 }
 
+struct SQLCount: SQLRequestProtocol, SQLFromProtocol {
+    private let parent: SQLSelect
+    
+    func build() -> String {
+        return "SELECT COUNT (\(self.parent.getColumns()))"
+    }
+}
+
 struct SQLLimit: SQLRequestProtocol {
     private let parent: SQLRequestProtocol
     private let limit: Int
@@ -134,6 +149,13 @@ struct SQLLimit: SQLRequestProtocol {
     func build() -> String {
         return "\(self.parent.build()) LIMIT \(self.limit)"
     }
+}
+
+//=====
+
+protocol SQLFromProtocol: SQLRequestProtocol {}
+extension SQLFromProtocol {
+    func FROM (table: String) -> SQLFrom {return SQLFrom(parent: self, table: table)}
 }
 
 protocol SQLLimitProtocol: SQLRequestProtocol {}

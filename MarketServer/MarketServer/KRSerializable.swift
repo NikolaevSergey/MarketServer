@@ -12,6 +12,5 @@ import PerfectLib
 typealias JSONType = [String : JSONValue]
 
 protocol KRSerializable {
-    init (JSON: JSONType) throws
     func serialize () -> JSONType
 }

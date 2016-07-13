@@ -37,7 +37,7 @@ extension Handler.Users {
             }()
             
             
-            let user = try ENUser(JSON: jsonQuery)
+            let user = try ENUser(dict: jsonQuery)
             let token = try ENToken(user: user)
             
             try response.addJSONResponse(["token" : token.token])
