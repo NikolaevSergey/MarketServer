@@ -86,4 +86,20 @@ extension DBTable {
         return nil
     }
     
+    static func GetRowsCount () -> Int {
+        
+        var count: Int!
+        
+        try! PostgresOperation { (connection) in
+            
+            let checkRequest = SQLBuilder.SELECT().COUNT().FROM(Name)
+            
+            let checkResult = try connection.execute(checkRequest)
+            count = checkResult.getFieldInt(0, fieldIndex: 0)
+            
+        }
+        
+        return count
+    }
+    
 }

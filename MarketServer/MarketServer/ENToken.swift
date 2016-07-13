@@ -53,9 +53,3 @@ extension ENToken {
         static let UserID = "user_id"
     }
 }
-
-extension ENToken {
-    enum Error {
-        case Unknown
-    }
-}

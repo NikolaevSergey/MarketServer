@@ -18,6 +18,9 @@ public func PerfectServerModuleInit() {
     Routing.Routes[RequestType.POST.rawValue, ["/users"]] = {(_: WebResponse) in return Handler.Users.RegistrationHandler()}
     Routing.Routes[RequestType.GET.rawValue, ["/auth"]] = {(_: WebResponse) in return Handler.Users.AuthorizationHandler()}
     
+    Routing.Routes[RequestType.GET.rawValue, ["/categories"]] = {(_: WebResponse) in return Handler.Categories.AuthorizationHandler()}
+    Routing.Routes[RequestType.GET.rawValue, ["/categories/{category_id}"]] = {(_: WebResponse) in return Handler.Unit.UnitsHandler()}
+    
     SetupPostgreSQLTables()
     
 }
@@ -25,4 +28,5 @@ public func PerfectServerModuleInit() {
 enum Handler {
     enum Users {}
     enum Categories {}
+    enum Unit {}
 }
