@@ -156,7 +156,7 @@ extension ENUnit: KRSerializable {
             Key.Autor: self.autor,
             Key.Price: self.price,
             Key.CategoryID: self.category.serialize(),
-            Key.Tags: self.tags.map({$0.serialize()})
+            Key.Tags: self.tags.map({$0.serialize()}) as [Any]
         ]
     }
 }

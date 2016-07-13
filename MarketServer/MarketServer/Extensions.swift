@@ -28,13 +28,15 @@ extension WebResponse {
     func addJSONResponse (response: [String : JSONValue]) throws {
         
         let jsonEncoder = JSONEncoder()
-        guard let responseString = try? jsonEncoder.encode(response) else {
+        
+        do {
+            let responseString = try jsonEncoder.encode(response)
+            self.addContentTypeHeader(.JSON)
+            self.appendBodyString(responseString)
+        } catch let error {
+            Logger.error("Encoding error: \(error)")
             throw HTTPStatus._500
         }
-
-        
-        self.addContentTypeHeader(.JSON)
-        self.appendBodyString(responseString)
     }
     
 }

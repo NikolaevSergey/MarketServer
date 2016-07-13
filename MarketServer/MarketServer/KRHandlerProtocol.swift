@@ -60,12 +60,15 @@ extension KRHandlerProtocol {
             try self.kr_handleRequest(query, request: request, response: response)
             
         } catch let status as HTTPStatus {
+            Logger.warning(status.description)
             response.setHTTPStatus(status)
             
         } catch let error as HTTPStatusProtocol {
+            Logger.warning(error.status.description)
             response.setHTTPStatus(error.status)
             
         } catch let error as APIErrorProtocol {
+            Logger.warning(error.message)
             response.setAPIError(error)
             
         } catch let error {
