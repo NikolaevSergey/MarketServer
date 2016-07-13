@@ -54,3 +54,17 @@ func DictFromStringTuple (tuples: [(String, String)]) -> [String : String] {
     
     return dict
 }
+
+// MARK: Raw Representable
+public extension RawRepresentable {
+    public init?(_ rawValue: RawValue) {
+        self.init(rawValue: rawValue)
+    }
+}
+
+public extension RawRepresentable where Self.RawValue == Int {
+    public static var allCases: [Self] {
+        var i = -1
+        return Array( AnyGenerator{i += 1;return self.init(rawValue: i)})
+    }
+}

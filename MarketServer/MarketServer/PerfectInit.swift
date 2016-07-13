@@ -18,6 +18,8 @@ public func PerfectServerModuleInit() {
     Routing.Routes[RequestType.POST.rawValue, ["/users"]] = {(_: WebResponse) in return Handler.Users.RegistrationHandler()}
     Routing.Routes[RequestType.GET.rawValue, ["/auth"]] = {(_: WebResponse) in return Handler.Users.AuthorizationHandler()}
     
+    Routing.Routes[RequestType.GET.rawValue, ["/categories"]] = {(_: WebResponse) in return Handler.Categories.AuthorizationHandler()}
+    
     SetupPostgreSQLTables()
     
 }
