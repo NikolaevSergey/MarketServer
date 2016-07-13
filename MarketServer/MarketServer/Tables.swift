@@ -40,38 +40,27 @@ class TBToken: DBTable {
     ]
 }
 
-//class TBCategory: DBTable {
-//    static let Name: String = "categories"
-//    
-//    static let Columns: [DBColumn] = [
-//        DBColumn(name: ENCategory.Key.ID         , type: .SERIAL     , settings: [.PrimaryKey]   , notNull: true),
-//        DBColumn(name: ENCategory.Key.Name       , type: .TEXT       , settings: []              , notNull: true)
-//    ]
-//    
-//    static let Relationships: [DBRelation] = []
-//}
+class TBBusket: DBTable {
+    
+    static let Name: String = "buskets"
+    
+    static let Columns: [DBColumn] = [
+        DBColumn(name: ENBusket.Key.ID      , type: .SERIAL  , settings: [.PrimaryKey]   , notNull: true),
+        DBColumn(name: ENBusket.Key.Date    , type: .INT     , settings: []              , notNull: true),
+        DBColumn(name: ENBusket.Key.Comment , type: .TEXT    , settings: []              , notNull: false)
+    ]
+    static let Relationships: [DBRelation] = [
+        DBRelation(columnName: ENBusket.Key.UserID, type: .INT, rTableName: TBUser.Name, rColumnName: ENUser.Key.id)
+    ]
+}
 
-//class TBUnit: DBTable {
-//    static let Name: String = "units"
-//    
-//    static let Columns: [DBColumn] = [
-//        DBColumn(name: ENUnit.Key.ID            , type: .SERIAL     , settings: [.PrimaryKey]   , notNull: true),
-//        DBColumn(name: ENUnit.Key.Name          , type: .TEXT       , settings: []              , notNull: true),
-//        DBColumn(name: ENUnit.Key.Price         , type: .REAL       , settings: []              , notNull: true)
-//    ]
-//    
-//    static let Relationships: [DBRelation] = [
-//        DBRelation(columnName: ENUnit.Key.CategoryID, type: .INT, rTableName: TBCategory.Name, rColumnName: ENCategory.Key.ID)
-//    ]
-//}
-//
-//class TBRUnitTag: DBTable {
-//    static let Name: String = "r_unit_tag"
-//    
-//    static let Columns: [DBColumn] = [
-//        DBColumn(name: ENRUnitTag.Key.TagID     , type: .INT, settings: [], notNull: true),
-//        DBColumn(name: ENRUnitTag.Key.UnitID    , type: .INT, settings: [], notNull: true)
-//    ]
-//    
-//    static let Relationships: [DBRelation] = []
-//}
+class TBRBusketUnit {
+    static let Name: String = "r_busket_unit"
+    
+    static let Columns: [DBColumn] = [
+        DBColumn(name: "busket_id"  , type: .INT, settings: [], notNull: true),
+        DBColumn(name: "unit_id"    , type: .INT, settings: [], notNull: true)
+    ]
+    
+    static let Relationships: [DBRelation] = []
+}

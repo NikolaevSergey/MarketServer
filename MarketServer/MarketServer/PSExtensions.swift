@@ -10,6 +10,12 @@ import PostgreSQL
 
 extension PGConnection {
     
+    func executeUniqRequest (request: SQLRequestProtocol) throws -> Bool {
+        let result = try self.execute(request)
+        let count = result.getFieldInt(0, fieldIndex: 0)
+        return count == 0
+    }
+    
     func execute(statement: String) throws -> PostgreSQL.PGResult {
         
         Logger.info(statement)
