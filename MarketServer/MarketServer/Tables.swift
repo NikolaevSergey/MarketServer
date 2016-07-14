@@ -42,7 +42,7 @@ class TBToken: DBTable {
 
 class TBOrder: DBTable {
     
-    static let Name: String = "buskets"
+    static let Name: String = "orders"
     
     static let Columns: [DBColumn] = [
         DBColumn(name: ENOrder.Key.ID      , type: .SERIAL  , settings: [.PrimaryKey]   , notNull: true),
@@ -54,7 +54,7 @@ class TBOrder: DBTable {
     ]
 }
 
-class TBROrderUnit {
+class TBROrderUnit: DBTable {
     static let Name: String = "r_order_unit"
     
     static let Columns: [DBColumn] = [

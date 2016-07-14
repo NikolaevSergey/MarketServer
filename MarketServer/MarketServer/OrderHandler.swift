@@ -18,14 +18,12 @@ extension Handler.Order {
         func kr_handleRequest(queryObject: QueryType, request: WebRequest, response: WebResponse) throws {
             
             let token = try ENToken(token: queryObject.token)
+            let user = try ENUser(token: token)
             
+            let orders = try ENOrder.OrdersForUser(user.id)
+            let ordersSerialized = orders.map({$0.serialize()}) as [Any]
             
-            guard let categoryName = request.urlVariables["category_id"], categoryID = Int(categoryName) else {throw HTTPStatus._400}
-            guard let category = ENCategory(rawValue: categoryID) else {throw HTTPStatus._404}
-            
-            let units = ENUnit.allCases.filter({$0.category == category}).sort({$0.0.name < $0.1.name}).map({$0.serialize()}) as [JSONValue]
-            
-            try response.addJSONResponse(["units" : units])
+            try response.addJSONResponse(["orders" : ordersSerialized])
             response.setHTTPStatus(._200)
         }
     }

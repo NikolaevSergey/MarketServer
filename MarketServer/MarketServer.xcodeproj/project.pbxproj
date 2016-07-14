@@ -45,6 +45,7 @@
 		21F58CBA1D312EFF00D993F6 /* KRSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F58CB91D312EFF00D993F6 /* KRSerializable.swift */; };
 		21F58CBD1D31384000D993F6 /* ENToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F58CBC1D31384000D993F6 /* ENToken.swift */; };
 		2B2D60AF1D33CCDA002304C7 /* SQLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2D60AE1D33CCDA002304C7 /* SQLBuilder.swift */; };
+		2BB6BF661D37CF0600ACED63 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB6BF651D37CF0600ACED63 /* Helpers.swift */; };
 		2BDDD8DD1D377F8F00E40301 /* OrderHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BDDD8DC1D377F8F00E40301 /* OrderHandler.swift */; };
 /* End PBXBuildFile section */
 
@@ -112,6 +113,7 @@
 		21F58CB91D312EFF00D993F6 /* KRSerializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KRSerializable.swift; sourceTree = "<group>"; };
 		21F58CBC1D31384000D993F6 /* ENToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENToken.swift; sourceTree = "<group>"; };
 		2B2D60AE1D33CCDA002304C7 /* SQLBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLBuilder.swift; sourceTree = "<group>"; };
+		2BB6BF651D37CF0600ACED63 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		2BDDD8DC1D377F8F00E40301 /* OrderHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -140,6 +142,7 @@
 		218E71691D128009008DED86 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				2BB6BF651D37CF0600ACED63 /* Helpers.swift */,
 				218E716A1D128014008DED86 /* Extensions.swift */,
 			);
 			name = Helpers;
@@ -451,6 +454,7 @@
 				21C0DEE71D11EC57008C6B50 /* Constants.swift in Sources */,
 				21F30FE81D19C72F00CA8B6E /* PSExtensions.swift in Sources */,
 				21F30FDB1D198A9F00CA8B6E /* DBTable.swift in Sources */,
+				2BB6BF661D37CF0600ACED63 /* Helpers.swift in Sources */,
 				21A74BA91D35522900A1AC67 /* ENError.swift in Sources */,
 				21D220971D14A65E00C95CDD /* APIError.swift in Sources */,
 				2BDDD8DD1D377F8F00E40301 /* OrderHandler.swift in Sources */,

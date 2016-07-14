@@ -15,48 +15,105 @@ class ENOrder {
     let date: NSDate
     
     private(set) var comment: String?
-    private(set) var units: [ENUnit]
     
-    var total: Double {return self.units.map({return $0.price}).reduce(0 as Double, combine: {$0 + $1})}
+    var total: Double {
+        guard let units = self.units else {return 0}
+        return units.map({return $0.price}).reduce(0 as Double, combine: {$0 + $1}) ?? 0
+    }
     
     class func OrdersForUser (id: Int) throws -> [ENOrder] {
         var orders: [ENOrder] = []
         
         try PostgresOperation { (connection) in
-            let request = SQLBuilder.SELECT([Key.ID, Key.UserID, Key.Date, Key.Comment, Key.Units]).FROM(TBOrder.Name).ORDERBY(Key.Date)
+            let request = SQLBuilder.SELECT([Key.ID, Key.UserID, Key.Date, Key.Comment]).FROM(TBOrder.Name).WHERE("\(Key.UserID)=\(id)").ORDERBY(Key.Date)
+            let result = try connection.execute(request)
             
+            let generator = IndexGenerator()
+            
+            for i in 0 ..< result.numTuples() {
+                
+                let id          = result.getFieldInt(i, fieldIndex: generator.generate())
+                let userID      = result.getFieldInt(i, fieldIndex: generator.generate())
+                let date        = result.getFieldInt(i, fieldIndex: generator.generate())
+                let comment     = result.getFieldString(i, fieldIndex: generator.generate())
+                
+                let order = try ENOrder(id: id, userID: userID, comment: comment, date: NSDate(timeIntervalSince1970: NSTimeInterval(date)))
+                
+                orders.append(order)
+            }
         }
         
         return orders
     }
     
-    init (userID: Int, comment: String? = nil, units: [ENUnit] = []) throws {
+    init (id: Int? = nil, userID: Int, comment: String? = nil, units: [ENUnit]?) throws {
         
-        var id: Int!
-        
+        var id: Int! = id
         let date = NSDate()
         
-        try PostgresOperation({ (connection) in
-            
-            var data: [String : Any] = [
-                Key.UserID  : userID,
-                Key.Date    : date.timestamp
-            ]
-            data.fs_updateIfExist(comment, forKey: Key.Comment)
-            
-            let request = SQLBuilder.INSERT(TBOrder.Name, data: data).RETURNING([Key.ID]).build()
-            let result = try connection.execute(request)
-            id = result.getFieldInt(0, fieldIndex: 0)
-            
-            try ENOrder.SetUnits(id, units: units)
-        })
+        if id == nil {
+            try PostgresOperation({ (connection) in
+                
+                var data: [String : Any] = [
+                    Key.UserID  : userID,
+                    Key.Date    : date.timestamp
+                ]
+                data.fs_updateIfExist(comment, forKey: Key.Comment)
+                
+                let request = SQLBuilder.INSERT(TBOrder.Name, data: data).RETURNING([Key.ID]).build()
+                let result = try connection.execute(request)
+                id = result.getFieldInt(0, fieldIndex: 0)
+                
+                
+            })
+        }
+        
         
         self.id         = id
         self.date       = date
-        self.comment    = comment
+        self.comment    = comment?.characters.count > 0 ? comment : nil
         self.userID     = userID
-        self.units      = units
+        
+        if let units = units {
+            try ENOrder.SetUnits(id, units: units)
+        }
     }
+    
+    private init (id: Int, userID: Int, comment: String? = nil, date: NSDate) throws {
+        
+        self.id         = id
+        self.date       = date
+        self.comment    = comment?.characters.count > 0 ? comment : nil
+        self.userID     = userID
+        
+        if let units = units {
+            try ENOrder.SetUnits(id, units: units)
+        }
+    }
+    
+    var units: [ENUnit]? {
+        
+        var units: [ENUnit] = []
+        
+        do {
+            try PostgresOperation { (connection) in
+                let request = SQLBuilder.SELECT(["unit_id"]).FROM(TBROrderUnit.Name).WHERE("order_id=\(self.id)")
+                let result = try connection.execute(request)
+                
+                for i in 0 ..< result.numTuples() {
+                    let id = result.getFieldInt(i, fieldIndex: 0)
+                    guard let unit = ENUnit(id) else {continue}
+                    units.append(unit)
+                }
+            }
+        } catch let error {
+            Logger.error("Getting units for order \(self.id) failed: \(error)")
+            return nil
+        }
+        
+        return units
+    }
+    
     
     func addUnits (units: [ENUnit]) throws {
         try ENOrder.SetUnits(self.id, units: units)
@@ -96,12 +153,14 @@ extension ENOrder {
 extension ENOrder: KRSerializable {
     func serialize() -> JSONType {
         
+        let units: [ENUnit] = self.units ?? []
+        
         var data: JSONType = [
             Key.ID      : self.id,
             Key.Date    : self.date.timestamp,
             Key.UserID  : self.userID,
             Key.Total   : self.total,
-            Key.Units   : self.units.map({$0.serialize()}) as [Any]
+            Key.Units   : units.map({$0.serialize()}) as [Any]
         ]
         
         data.fs_updateIfExist(self.comment, forKey: Key.Comment)
