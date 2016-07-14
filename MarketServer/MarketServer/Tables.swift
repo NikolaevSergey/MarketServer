@@ -40,25 +40,25 @@ class TBToken: DBTable {
     ]
 }
 
-class TBBusket: DBTable {
+class TBOrder: DBTable {
     
     static let Name: String = "buskets"
     
     static let Columns: [DBColumn] = [
-        DBColumn(name: ENBusket.Key.ID      , type: .SERIAL  , settings: [.PrimaryKey]   , notNull: true),
-        DBColumn(name: ENBusket.Key.Date    , type: .INT     , settings: []              , notNull: true),
-        DBColumn(name: ENBusket.Key.Comment , type: .TEXT    , settings: []              , notNull: false)
+        DBColumn(name: ENOrder.Key.ID      , type: .SERIAL  , settings: [.PrimaryKey]   , notNull: true),
+        DBColumn(name: ENOrder.Key.Date    , type: .INT     , settings: []              , notNull: true),
+        DBColumn(name: ENOrder.Key.Comment , type: .TEXT    , settings: []              , notNull: false)
     ]
     static let Relationships: [DBRelation] = [
-        DBRelation(columnName: ENBusket.Key.UserID, type: .INT, rTableName: TBUser.Name, rColumnName: ENUser.Key.id)
+        DBRelation(columnName: ENOrder.Key.UserID, type: .INT, rTableName: TBUser.Name, rColumnName: ENUser.Key.id)
     ]
 }
 
-class TBRBusketUnit {
-    static let Name: String = "r_busket_unit"
+class TBROrderUnit {
+    static let Name: String = "r_order_unit"
     
     static let Columns: [DBColumn] = [
-        DBColumn(name: "busket_id"  , type: .INT, settings: [], notNull: true),
+        DBColumn(name: "order_id"  , type: .INT, settings: [], notNull: true),
         DBColumn(name: "unit_id"    , type: .INT, settings: [], notNull: true)
     ]
     

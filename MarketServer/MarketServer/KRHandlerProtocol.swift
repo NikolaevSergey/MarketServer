@@ -12,22 +12,15 @@ typealias QueryType = [String : String]
 
 protocol KRHandlerProtocol: RequestHandler {
     
+    associatedtype QueryType: KRQueryObject
+    
     var requestType:RequestType {get}
     var responseContentType: ResponseContentType {get}
     
-    var requiredFields: [String] {get}
-    
-    func getRequestParameters(request: WebRequest) -> [String : String]
-    
-    func validate(query: [String : AnyObject]) throws
-    
-    func kr_handleRequest(query: [String : String], request: WebRequest, response: WebResponse) throws
+    func kr_handleRequest(query: QueryType, request: WebRequest, response: WebResponse) throws
 }
 
 extension KRHandlerProtocol {
-    
-    var requiredFields: [String] {return []}
-    func validate(query: [String : AnyObject]) throws {}
     
     var responseContentType: ResponseContentType {return .JSON}
     
@@ -38,6 +31,7 @@ extension KRHandlerProtocol {
         default: return [:]
         }
     }
+    
 }
 
 extension KRHandlerProtocol {
@@ -47,17 +41,9 @@ extension KRHandlerProtocol {
         
         let query = self.getRequestParameters(request)
         
-        for key in self.requiredFields {
-            guard query[key] != nil else {
-                Logger.warning("Validation failed for key \(key)")
-                response.setHTTPStatus(._400)
-                return
-            }
-        }
-        
         do {
-            try self.validate(query)
-            try self.kr_handleRequest(query, request: request, response: response)
+            let queryObject = try QueryType(query: query, request: request)
+            try self.kr_handleRequest(queryObject, request: request, response: response)
             
         } catch let status as HTTPStatus {
             Logger.warning(status.description)
@@ -76,4 +62,8 @@ extension KRHandlerProtocol {
             response.setHTTPStatus(._500)
         }
     }
+}
+
+protocol KRQueryObject {
+    init (query: [String : String], request: WebRequest) throws
 }

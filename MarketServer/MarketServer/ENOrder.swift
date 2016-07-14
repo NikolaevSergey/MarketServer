@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ENBusket {
+class ENOrder {
     
     let id: Int
     let userID: Int
@@ -16,6 +16,19 @@ class ENBusket {
     
     private(set) var comment: String?
     private(set) var units: [ENUnit]
+    
+    var total: Double {return self.units.map({return $0.price}).reduce(0 as Double, combine: {$0 + $1})}
+    
+    class func OrdersForUser (id: Int) throws -> [ENOrder] {
+        var orders: [ENOrder] = []
+        
+        try PostgresOperation { (connection) in
+            let request = SQLBuilder.SELECT([Key.ID, Key.UserID, Key.Date, Key.Comment, Key.Units]).FROM(TBOrder.Name).ORDERBY(Key.Date)
+            
+        }
+        
+        return orders
+    }
     
     init (userID: Int, comment: String? = nil, units: [ENUnit] = []) throws {
         
@@ -31,11 +44,11 @@ class ENBusket {
             ]
             data.fs_updateIfExist(comment, forKey: Key.Comment)
             
-            let request = SQLBuilder.INSERT(TBBusket.Name, data: data).RETURNING([Key.ID]).build()
+            let request = SQLBuilder.INSERT(TBOrder.Name, data: data).RETURNING([Key.ID]).build()
             let result = try connection.execute(request)
             id = result.getFieldInt(0, fieldIndex: 0)
             
-            try ENBusket.SetUnits(id, units: units)
+            try ENOrder.SetUnits(id, units: units)
         })
         
         self.id         = id
@@ -46,13 +59,13 @@ class ENBusket {
     }
     
     func addUnits (units: [ENUnit]) throws {
-        try ENBusket.SetUnits(self.id, units: units)
+        try ENOrder.SetUnits(self.id, units: units)
     }
     
     func removeUnits (units: [ENUnit]) throws {
         try PostgresOperation({ (connection) in
             for unit in units {
-                let request = SQLBuilder.DELETE(TBRBusketUnit.Name).WHERE("busket_id=\(self.id) AND unit_id=\(unit.id)")
+                let request = SQLBuilder.DELETE(TBROrderUnit.Name).WHERE("busket_id=\(self.id) AND unit_id=\(unit.id)")
                 try connection.execute(request)
             }
         })
@@ -60,32 +73,34 @@ class ENBusket {
     
     func delete () throws {
         try PostgresOperation({ (connection) in
-            let unitRelationrequest = SQLBuilder.DELETE(TBRBusketUnit.Name).WHERE("busket_id=\(self.id)")
+            let unitRelationrequest = SQLBuilder.DELETE(TBROrderUnit.Name).WHERE("busket_id=\(self.id)")
             try connection.execute(unitRelationrequest)
             
-            let removeRequest = SQLBuilder.DELETE(TBBusket.Name).WHERE("id=\(self.id)")
+            let removeRequest = SQLBuilder.DELETE(TBOrder.Name).WHERE("id=\(self.id)")
             try connection.execute(removeRequest)
         })
     }
 }
 
-extension ENBusket {
+extension ENOrder {
     enum Key {
         static let ID       = "id"
         static let Date     = "timestamp"
         static let UserID   = "user_id"
         static let Comment  = "comment"
         static let Units    = "units"
+        static let Total    = "total"
     }
 }
 
-extension ENBusket: KRSerializable {
+extension ENOrder: KRSerializable {
     func serialize() -> JSONType {
         
         var data: JSONType = [
             Key.ID      : self.id,
             Key.Date    : self.date.timestamp,
             Key.UserID  : self.userID,
+            Key.Total   : self.total,
             Key.Units   : self.units.map({$0.serialize()}) as [Any]
         ]
         
@@ -95,11 +110,11 @@ extension ENBusket: KRSerializable {
     }
 }
 
-extension ENBusket {
+extension ENOrder {
     
     private class func SetUnits (id: Int, units: [ENUnit]) throws {
         
-        let table = TBRBusketUnit.self
+        let table = TBROrderUnit.self
         
         do {
             try PostgresOperation({ (connection) in

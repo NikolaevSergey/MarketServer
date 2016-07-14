@@ -132,7 +132,9 @@ class ENUser {
         self.id = lId
     }
     
-    // MARK: - KRSerializable
+    convenience init (token: ENToken) throws {
+        try self.init(id: token.userID)
+    }
     
     convenience required init (dict: [String : Any]) throws {
         guard   let firstName   = dict[Key.firstName] as? String,

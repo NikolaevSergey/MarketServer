@@ -112,7 +112,7 @@ struct SQLReturning: SQLRequestProtocol {
 
 //===
 
-struct SQLFrom: SQLRequestProtocol, SQLLimitProtocol {
+struct SQLFrom: SQLRequestProtocol, SQLLimitProtocol, SQLOrderProtocol {
     private let parent: SQLRequestProtocol
     private let table: String
     
@@ -125,7 +125,7 @@ struct SQLFrom: SQLRequestProtocol, SQLLimitProtocol {
     }
 }
 
-struct SQLWhere: SQLRequestProtocol, SQLLimitProtocol {
+struct SQLWhere: SQLRequestProtocol, SQLLimitProtocol, SQLOrderProtocol {
     private let parent: SQLRequestProtocol
     private let query: String
     
@@ -151,7 +151,21 @@ struct SQLLimit: SQLRequestProtocol {
     }
 }
 
+struct SQLOrder: SQLRequestProtocol, SQLLimitProtocol {
+    private let parent: SQLRequestProtocol
+    private let column: String
+    
+    func build() -> String {
+        return "\(self.parent.build()) ORDER BY \(column)"
+    }
+}
+
 //=====
+
+protocol SQLOrderProtocol: SQLRequestProtocol {}
+extension SQLOrderProtocol {
+    func ORDERBY (column: String) -> SQLOrder {return SQLOrder(parent: self, column: column)}
+}
 
 protocol SQLFromProtocol: SQLRequestProtocol {}
 extension SQLFromProtocol {
