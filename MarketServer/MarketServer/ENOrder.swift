@@ -1,5 +1,5 @@
 //
-//  ENBusket.swift
+//  ENBasket.swift
 //  MarketServer
 //
 //  Created by Sergey Nikolaev on 13.07.16.
@@ -122,7 +122,7 @@ class ENOrder {
     func removeUnits (units: [ENUnit]) throws {
         try PostgresOperation({ (connection) in
             for unit in units {
-                let request = SQLBuilder.DELETE(TBROrderUnit.Name).WHERE("busket_id=\(self.id) AND unit_id=\(unit.id)")
+                let request = SQLBuilder.DELETE(TBROrderUnit.Name).WHERE("basket_id=\(self.id) AND unit_id=\(unit.id)")
                 try connection.execute(request)
             }
         })
@@ -130,7 +130,7 @@ class ENOrder {
     
     func delete () throws {
         try PostgresOperation({ (connection) in
-            let unitRelationrequest = SQLBuilder.DELETE(TBROrderUnit.Name).WHERE("busket_id=\(self.id)")
+            let unitRelationrequest = SQLBuilder.DELETE(TBROrderUnit.Name).WHERE("basket_id=\(self.id)")
             try connection.execute(unitRelationrequest)
             
             let removeRequest = SQLBuilder.DELETE(TBOrder.Name).WHERE("id=\(self.id)")
@@ -179,8 +179,8 @@ extension ENOrder {
             try PostgresOperation({ (connection) in
                 for unit in units {
                     let checkRequest = SQLBuilder.SELECT().COUNT().FROM(table.Name)
-                        .WHERE("busket_id=\(id) AND unit_id=\(unit.id)")
-                    let insertRequest = SQLBuilder.INSERT(table.Name, data: ["busket_id" : id, "unit_id" : unit.id])
+                        .WHERE("basket_id=\(id) AND unit_id=\(unit.id)")
+                    let insertRequest = SQLBuilder.INSERT(table.Name, data: ["basket_id" : id, "unit_id" : unit.id])
                     
                     let checkResult = try connection.execute(checkRequest)
                     guard checkResult.numTuples() == 0 else {continue}
@@ -188,7 +188,7 @@ extension ENOrder {
                 }
             })
         } catch let error {
-            Logger.error("TBRBusketUnit insert was failed: \(error)")
+            Logger.error("TBRBasketUnit insert was failed: \(error)")
             throw error
         }
         
