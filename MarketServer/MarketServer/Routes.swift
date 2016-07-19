@@ -15,6 +15,7 @@ func SetupRoutes () {
     RegisterRoute(.GET,     routes: ["/categories"],                handler: Handler.Categories.CategoriesHandler())
     
     RegisterRoute(.GET,     routes: ["/categories/{category_id}"],  handler: Handler.Unit.UnitsHandler())
+    RegisterRoute(.GET,     routes: ["/units"],                     handler: Handler.Unit.UnitsSearchHandler())
     
     RegisterRoute(.GET,     routes: ["/orders"],                    handler: Handler.Order.OrdersHandler())
 }
