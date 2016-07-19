@@ -11,10 +11,13 @@ import PerfectLib
 
 extension Handler.Categories {
     
-    class AuthorizationHandler: KRHandlerProtocol {
-        let requestType: RequestType = .GET
+    class CategoriesHandler: KRHandlerProtocol {
         
-        func kr_handleRequest(query: [String : String], request: WebRequest, response: WebResponse) throws {
+        typealias QueryType = CategoriesQuery
+        
+        static let requestType: RequestType = .GET
+        
+        func kr_handleRequest(queryObject: QueryType, request: WebRequest, response: WebResponse) throws {
             
             let categories = ENCategory.allCases.map({$0.serialize()}) as [JSONValue]
             
@@ -23,4 +26,7 @@ extension Handler.Categories {
         }
     }
     
+    struct CategoriesQuery: KRQueryObject {
+        init(query: [String : String], request: WebRequest) throws {}
+    }
 }
