@@ -14,18 +14,18 @@ protocol KRHandlerProtocol: RequestHandler {
     
     associatedtype QueryType: KRQueryObject
     
-    var requestType:RequestType {get}
-    var responseContentType: ResponseContentType {get}
+    static var requestType:RequestType {get}
+    static var responseContentType: ResponseContentType {get}
     
     func kr_handleRequest(query: QueryType, request: WebRequest, response: WebResponse) throws
 }
 
 extension KRHandlerProtocol {
     
-    var responseContentType: ResponseContentType {return .JSON}
+    static var responseContentType: ResponseContentType {return .JSON}
     
     func getRequestParameters(request: WebRequest) -> [String : String] {
-        switch self.requestType {
+        switch self.dynamicType.requestType {
         case .GET   : return DictFromStringTuple(request.queryParams)
         case .POST  : return DictFromStringTuple(request.postParams)
         default: return [:]

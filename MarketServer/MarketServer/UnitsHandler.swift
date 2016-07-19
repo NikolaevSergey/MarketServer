@@ -12,8 +12,10 @@ import PerfectLib
 extension Handler.Unit {
     
     class UnitsHandler: KRHandlerProtocol {
+        
         typealias QueryType = UnitsQuery
-        let requestType: RequestType = .GET
+        
+        static let requestType: RequestType = .GET
         
         func kr_handleRequest(queryObject: QueryType, request: WebRequest, response: WebResponse) throws {
             

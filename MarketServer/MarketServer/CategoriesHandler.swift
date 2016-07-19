@@ -12,8 +12,10 @@ import PerfectLib
 extension Handler.Categories {
     
     class CategoriesHandler: KRHandlerProtocol {
+        
         typealias QueryType = CategoriesQuery
-        let requestType: RequestType = .GET
+        
+        static let requestType: RequestType = .GET
         
         func kr_handleRequest(queryObject: QueryType, request: WebRequest, response: WebResponse) throws {
             

@@ -11,8 +11,10 @@ import PerfectLib
 extension Handler.Users {
     
     class RegistrationHandler: KRHandlerProtocol {
-        typealias QueryType             = UserRegistrationQuery
-        let requestType: RequestType    = .POST
+        
+        typealias QueryType = UserRegistrationQuery
+        
+        static let requestType: RequestType = .POST
         
         func kr_handleRequest(queryObject: QueryType, request: WebRequest, response: WebResponse) throws {
             
@@ -25,8 +27,10 @@ extension Handler.Users {
     }
     
     class AuthorizationHandler: KRHandlerProtocol {
-        typealias QueryType             = UserAuthQuery
-        let requestType: RequestType    = .GET
+        
+        typealias QueryType = UserAuthQuery
+        
+        static let requestType: RequestType = .GET
         
         func kr_handleRequest(queryObject: QueryType, request: WebRequest, response: WebResponse) throws {
             
