@@ -46,4 +46,36 @@ extension Request {
         
         return response(responseSerializer: responseSerializer, completionHandler: completionHandler)
     }
+    
+    func responseObjects<T: RTSerialazible>(completionHandler: Response<[T], RTError> -> Void) -> Self {
+        
+        let responseSerializer = ResponseSerializer<[T], RTError> { request, response, data, error in
+            guard error == nil else { return .Failure(RTError(request: .Unknown(error: error)))}
+            
+            let JSONResponseSerializer = Request.JSONResponseSerializer(options: .AllowFragments)
+            let result = JSONResponseSerializer.serializeResponse(request, response, data, error)
+            
+            switch result {
+            case .Success(let value):
+                
+                guard let objects = value as? [T.ResponseType] else {
+                    return .Failure(RTError(serialize: .WrongType))
+                }
+                
+                do {
+                    let serializedObjects = try objects.map({try T.serialize($0)})
+                    return .Success(serializedObjects)
+                } catch let error as SerializationError {
+                    return .Failure(RTError(serialize: error))
+                } catch {
+                    return .Failure(RTError(serialize: .Unknown))
+                }
+                
+            case .Failure(_):
+                return .Failure(RTError(serialize: .JSONSerializingFailed))
+            }
+        }
+        
+        return response(responseSerializer: responseSerializer, completionHandler: completionHandler)
+    }
 }

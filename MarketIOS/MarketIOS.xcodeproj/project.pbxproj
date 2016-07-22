@@ -23,6 +23,7 @@
 		21CD366A1D2D1813003AE7DA /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21CD36681D2D1813003AE7DA /* Alamofire.framework */; };
 		21CD366F1D2D195C003AE7DA /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21CD366D1D2D195C003AE7DA /* Realm.framework */; };
 		21CD36701D2D195C003AE7DA /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21CD366E1D2D195C003AE7DA /* RealmSwift.framework */; };
+		21E137251D41277C00C97F06 /* ENCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E137241D41277C00C97F06 /* ENCategory.swift */; };
 		21EAF2431D2E46B200ADCCC6 /* XCGLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21EAF2421D2E46B200ADCCC6 /* XCGLogger.framework */; };
 		21EAF2451D2E48C200ADCCC6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EAF2441D2E48C200ADCCC6 /* Constants.swift */; };
 		21EAF2471D2E48CB00ADCCC6 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EAF2461D2E48CB00ADCCC6 /* Helpers.swift */; };
@@ -70,6 +71,7 @@
 		21CD366C1D2D192C003AE7DA /* BridgeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgeHeader.h; sourceTree = "<group>"; };
 		21CD366D1D2D195C003AE7DA /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Realm/Realm.framework; sourceTree = "<group>"; };
 		21CD366E1D2D195C003AE7DA /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Realm/RealmSwift.framework; sourceTree = "<group>"; };
+		21E137241D41277C00C97F06 /* ENCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENCategory.swift; sourceTree = "<group>"; };
 		21EAF2421D2E46B200ADCCC6 /* XCGLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCGLogger.framework; path = Carthage/Build/iOS/XCGLogger.framework; sourceTree = "<group>"; };
 		21EAF2441D2E48C200ADCCC6 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		21EAF2461D2E48CB00ADCCC6 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				2112B4781D2D5AEC00D7C833 /* Interface */,
 				21A040E61D2E5AD600B38244 /* Helpers */,
 				2112B4761D2D5A9800D7C833 /* API */,
+				21E137231D41276900C97F06 /* Database */,
 				21CD363B1D2D165C003AE7DA /* ViewController.swift */,
 				2112B4771D2D5ABB00D7C833 /* Supporting Files */,
 			);
@@ -217,6 +220,14 @@
 				21CD36681D2D1813003AE7DA /* Alamofire.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		21E137231D41276900C97F06 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				21E137241D41277C00C97F06 /* ENCategory.swift */,
+			);
+			name = Database;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -379,6 +390,7 @@
 				2112B47A1D2D5B0000D7C833 /* Router.swift in Sources */,
 				2112B4821D2D6D0800D7C833 /* RTErrorsDescription.swift in Sources */,
 				2112B4801D2D698F00D7C833 /* RTErrors.swift in Sources */,
+				21E137251D41277C00C97F06 /* ENCategory.swift in Sources */,
 				21CD363A1D2D165C003AE7DA /* AppDelegate.swift in Sources */,
 				21EAF2451D2E48C200ADCCC6 /* Constants.swift in Sources */,
 				21EAF2471D2E48CB00ADCCC6 /* Helpers.swift in Sources */,

@@ -34,5 +34,3 @@ extension Router.Category: RouterProtocol {
         }
     }
 }
-
-
