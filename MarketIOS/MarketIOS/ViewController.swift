@@ -12,6 +12,11 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Router.Category.GetAll.request().responseObject { (response: Response<RTCategoriesResponse, NSError>) in
+            
+        }
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
 

@@ -12,3 +12,5 @@
 @import Alamofire;
 @import RealmSwift;
 @import XCGLogger;
+@import AlamofireObjectMapper;
+@import ObjectMapper;
