@@ -25,14 +25,12 @@ class ENCategory: Object {
         guard let _ = map.JSONDictionary["id"] as? Int else {return nil}
         self.init()
     }
-    
-    
 }
 
 extension ENCategory: Mappable {
     func mapping(map: ObjectMapper.Map) {
-        id <- map["id"]
-        name <- map["name"]
+        self.id     <- map["id"]
+        self.name   <- map["name"]
     }
 }
 
