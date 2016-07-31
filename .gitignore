@@ -22,5 +22,4 @@ DerivedData
 .xcbkptlist
 
 # Carthage
-MarketIOS/Carthage
-MarketServer/Carthage
+Carthage/
