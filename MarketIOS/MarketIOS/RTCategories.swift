@@ -24,7 +24,7 @@ extension Router.Category: RouterProtocol {
     
     var path: String {
         switch self {
-        case .GetAll: return "/"
+        case .GetAll: return "/categories"
         }
     }
     

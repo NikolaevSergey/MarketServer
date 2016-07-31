@@ -14,7 +14,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         Router.Category.GetAll.request().responseObject { (response: Response<RTCategoriesResponse, NSError>) in
-            
+            print(response)
+            print(response.result)
+            print(response.result.value)
         }
         
         // Do any additional setup after loading the view, typically from a nib.
