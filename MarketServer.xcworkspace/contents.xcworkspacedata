@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:MarketServer.xcodeproj">
+   </FileRef>
+   <Group
+      location = "container:"
+      name = "Perfect">
+      <FileRef
+         location = "group:Perfect/PerfectServer/PerfectServer.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Perfect/PerfectLib/PerfectLib.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Perfect/Connectors/PostgreSQL/PostgreSQL.xcodeproj">
+      </FileRef>
+   </Group>
+</Workspace>
